@@ -1,0 +1,77 @@
+{% load util_filters %}
+
+{% if form %}
+<div id="detail-category-modal-box" class="modal-box" {% if type == "edit" %}hx-swap-oob="true" {% endif %}>
+    <h3 class="text-lg font-bold mb-3">Thông Tin Hạng Mục</h3>
+    <div class="">
+        <form id="detail-category-form" action="#" class="space-y-3">
+            {% csrf_token %}
+
+            <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Tên hạng dịch</span>
+                </div>
+                <input id="detail-category-name-input" name="name" type="text" class="input input-bordered"
+                    value="{{ form.name.value }}" required minlength="3" maxlength="150" />
+                {% include "component/form-field-error.html" with field_errors=form.name.errors %}
+            </label>
+            <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Loại hạng mục</span>
+                </div>
+                <select id="detail-category-category-select" class="select select-bordered" name="type"
+                    value="{{ form.type.value }}" required>
+                    {% if form.type.value %}
+                    <option value="">Chọn loại hạng mục</option>
+                    <option value="1" {% if form.type.value|stringformat:"s" == '1' %}selected{% endif %}>Thu nhập
+                    </option>
+                    <option value="2" {% if form.type.value|stringformat:"s" == '2' %}selected{% endif %}>Chi tiêu
+                    </option>
+                    {% else %}
+                    <option value="" selected>Chọn loại hạng mục</option>
+                    <option value="1">Thu nhập</option>
+                    <option value="2">Chi tiêu</option>
+                    {% endif %}
+                </select>
+                {% include "component/form-field-error.html" with field_errors=form.type.errors %}
+            </label>
+            <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Mô tả</span>
+                </div>
+                <textarea name="description" class="textarea textarea-bordered h-52"
+                    maxlength='500'>{{ form.description.value }}</textarea>
+                {% include "component/form-field-error.html" with field_errors=form.description.errors %}
+            </label>
+
+            <div class="flex gap-2 justify-end">
+                <label for="detail-category-modal" class="btn btn-sm btn-outline">Huỷ bỏ</label>
+                <label class="btn btn-sm btn-error" hx-post="{% url "htmx-delete-category" category.id %}"
+                    hx-trigger="click" hx=swap="none" hx-disabled-elt="this" hx-swap="none"
+                    hx-confirm="Xác nhận xoá Hạng mục này?"
+                    hx-on="deleteCategorySuccessfully: toggleModal('detail-category-modal')">
+                    Xoá
+                </label>
+                <label id="btn-save-category-detail" class="btn btn-sm btn-primary"
+                    hx-post="{% url "htmx-update-category" category.id %}" hx-trigger="click" hx-disabled-elt="this"
+                    hx-validate="true" hx-swap="none" disabled
+                    hx-on="updateCategorySuccessfully: toggleModal('detail-category-modal')">
+                    Lưu
+                </label>
+            </div>
+        </form>
+        <script>
+            (function () {
+                const $form = document.getElementById('detail-category-form');
+                const $saveBtn = document.getElementById('btn-save-category-detail');
+                const initialData = new FormData($form);
+
+                $form.addEventListener("input", function () {
+                    onDetailFormChanged($form, $saveBtn, initialData);
+                });
+            })();
+        </script>
+    </div>
+</div>
+
+{% endif %}

@@ -1,0 +1,46 @@
+<div id="add-category-form-block" class="modal-box" hx-swap-oob="true">
+    <h3 class="text-lg font-bold mb-3">Thêm Hạng Mục</h3>
+    <div class="">
+        <form id="add-category-form" action="#" class="space-y-3">
+            {% csrf_token %}
+
+            <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Tên hạng mục</span>
+                </div>
+                <input name="name" type="text" class="input input-bordered" value="{{ form.name.value }}" required
+                    minlength="3" maxlength="150"
+                    hx-on:htmx:validation:validate="htmx.find('#add-category-form').reportValidity()" />
+                {% include "component/form-field-error.html" with field_errors=form.name.errors %}
+            </label>
+            <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Loại hạng mục</span>
+                </div>
+                <select class="select select-bordered" name="type" value="{{ form.type.value }}" required>
+                    <option value="" selected>Chọn loại hạng mục</option>
+                    <option value="1">Thu nhập</option>
+                    <option value="2">Chi tiêu</option>
+                </select>
+                {% include "component/form-field-error.html" with field_errors=form.type.errors %}
+            </label>
+
+            <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Mô tả</span>
+                </div>
+                <textarea name="description" class="textarea textarea-bordered h-24" maxlength='500'></textarea>
+            </label>
+
+            <div class="flex gap-2 justify-end">
+                <label for="add-category-modal" class="btn btn-sm btn-outline">Huỷ bỏ</label>
+                <button type="reset" class="btn btn-sm btn-outline">Làm mới</button>
+                <label class="btn btn-sm btn-primary" hx-post="{% url "htmx-add-category" %}" hx-trigger="click"
+                    hx-disabled-elt="this" hx-validate="true" hx-swap='none'
+                    hx-on="addCategorySuccessfully: toggleModal('add-category-modal'); resetForm('add-category-form')">
+                    Thêm
+                </label>
+            </div>
+        </form>
+    </div>
+</div>

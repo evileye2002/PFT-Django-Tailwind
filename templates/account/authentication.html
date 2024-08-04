@@ -1,0 +1,16 @@
+{% extends "base/base.html" %}
+{% load util_filters %}
+
+{% block content %}
+<section class="bg-base-200">
+    <div class="flex flex-col items-center justify-center px-6 py-8 mx-auto ">
+        <div class="card card-bordered shadow-xl w-full sm:max-w-md bg-base-100">
+            {% if "sign-in" in request.path %}
+            {% include "partial/account/sign-in-form.html" %}
+            {% else %}
+            {% include "partial/account/sign-up-form.html" %}
+            {% endif %}
+        </div>
+    </div>
+</section>
+{% endblock content %}

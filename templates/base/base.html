@@ -1,0 +1,50 @@
+{% load static tailwind_tags %}
+
+<!DOCTYPE html>
+<html lang="en" data-theme="dark" class="">
+  <head>
+    {% load static %}
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ExMoney {{ page_info.title }}</title>
+
+    <!-- CSS -->
+    {% tailwind_css %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    {% block style %}
+
+    {% endblock %}
+
+    <!-- Script -->
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <script src="{% static 'vendor/js/htmx.min.js' %}"></script>
+    <script src="{% static 'vendor/js/datepicker-full.min.js' %}"></script>
+    <script src="{% static 'js/script.js' %}"></script>
+    <script src="{% static 'js/theme-changer.js' %}"></script>
+    <script src="{% static 'js/charts.js' %}"></script>
+  </head>
+
+  <body class="h-screen">
+    <header>
+      {% include 'component/navbar.html' %}
+    </header>
+
+    <main class="bg-base-100">
+      {% block content %}
+
+      {% endblock %}
+    </main>
+
+    {% include 'component/confirm-modal.html' %}
+    <div id="toast" class="toast toast-center active items-center z-[100]"></div>
+
+    {% include 'component/loading.html' %}
+    {% include 'base/footer.html' %}
+
+    {% block script %}
+
+    {% endblock %}
+  </body>
+</html>

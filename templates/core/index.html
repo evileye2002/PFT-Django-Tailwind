@@ -1,0 +1,65 @@
+{% extends 'base/base.html' %}
+{% load util_filters %}
+
+{% block content %}
+  <section id="filter" class="flex justify-center">
+    <div class="px-3 py-0 w-full md:w-[92%]">
+      <div class="grid grid-cols-3 gap-5">
+        <div class="col-span-3 md:col-span-1 shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg whitespace-nowrap">
+          <div class="flex justify-between items-center px-5">
+            <div class="">
+              <div class="text-gray-500">Số dư</div>
+              <div class="text-xl font-bold pt-3">{{ user.balance|int_comma }} đ</div>
+            </div>
+            <div class="btn btn-square btn-warning">
+              <i class="fa-solid fa-coins fa-2xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-3 md:col-span-1 shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg whitespace-nowrap">
+          <div class="flex justify-between items-center px-5">
+            <div class="">
+              <div class="text-gray-500">Thu nhập trung bình</div>
+              <div class="text-xl font-bold pt-3">{{ user.balance|int_comma }} đ</div>
+            </div>
+            <div class="btn btn-square btn-success">
+              <i class="fa-solid fa-arrow-trend-up fa-2xl"></i>
+            </div>
+          </div>
+        </div>
+        <div class="col-span-3 md:col-span-1 shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg whitespace-nowrap">
+          <div class="flex justify-between items-center px-5">
+            <div class="">
+              <div class="text-gray-500">Chi tiêu trung bình</div>
+              <div class="text-xl font-bold pt-3">{{ user.balance|int_comma }} đ</div>
+            </div>
+            <div class="btn btn-square btn-error">
+              <i class="fa-solid fa-arrow-trend-down fa-2xl"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="total" class="flex justify-center">
+    <div class="px-3 py-5 w-full md:w-[92%]">
+      <div class="grid grid-cols-4 gap-5">
+        <div class="col-span-4 md:col-span-3 shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg">
+          {% include 'partial/charts/column.html' %}
+        </div>
+        <div class="col-span-3 md:col-span-1 shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg">
+          {% include 'partial/charts/donut-income.html' %}
+        </div>
+      </div>
+      <div class="grid grid-cols-4 grid-flow-row gap-5 pt-5">
+        <div class="col-span-3 md:row-span-4 md:col-span-1 shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg">
+          {% include 'partial/charts/donut-expense.html' %}
+        </div>
+        <div class="col-span-4 md:row-span-4 md:col-span-2 shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg"></div>
+        <div class="col-span-4 md:row-span-2 md:col-span-1 shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg"></div>
+        <div class="col-span-4 md:row-span-2 md:col-span-1 shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg"></div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

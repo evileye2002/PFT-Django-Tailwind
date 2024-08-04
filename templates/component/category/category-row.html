@@ -1,0 +1,20 @@
+{% load util_filters %}
+
+<tr>
+    <th>
+        <label class="flex items-center justify-center">
+            <input row-selection data-transaction-id="{{ category.id }}" type="checkbox"
+                class="checkbox checkbox-sm row-checkbox" onchange="onRowSelected(event)" />
+        </label>
+    </th>
+    <td class="font-bold">{{ category.name|title }}</td>
+    <td>{{ category.get_type_display }}</td>
+    <td class="truncate">{{ category.description|truncatechars:30 }}</td>
+    <th class="text-center">
+        <label for="detail-category-modal" class="btn btn-primary btn-outline btn-xs"
+            hx-get="{% url "htmx-category-deltail" category.id %}" hx-trigger="click"
+            hx-target="#detail-category-modal-box" hx-swap="outerHTML">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </label>
+    </th>
+</tr>

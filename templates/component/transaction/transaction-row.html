@@ -1,0 +1,25 @@
+{% load util_filters %}
+
+<tr>
+    <th>
+        <label class="flex items-center justify-center">
+            <input row-selection data-transaction-id="{{ t.id }}" type="checkbox" class="checkbox checkbox-sm "
+                onchange="onRowSelected(event)" />
+        </label>
+    </th>
+    <td class="font-bold">{{ t.name|title }}</td>
+    <td>{{ t.category|title }}</td>
+    <td>
+        <div class="badge {{ t|check_transaction_type:"badge-success,badge-error" }} badge-outline text-nowrap">
+            {{ t|check_transaction_type:"+,-" }}{{ t.amount|int_comma }} đ
+        </div>
+    </td>
+    <td>{{ t.date|date:"d-m-Y" }}</td>
+    <th class="text-center">
+        <label for="transaction-detail-modal" class="btn btn-primary btn-outline btn-xs"
+            hx-get="{% url "htmx-transaction-deltail" t.id %}" hx-trigger="click"
+            hx-target="#detail-transaction-modal-box" hx-swap="outerHTML">
+            <i class="fa-solid fa-pen-to-square"></i>
+        </label>
+    </th>
+</tr>

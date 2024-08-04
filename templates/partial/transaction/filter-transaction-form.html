@@ -1,0 +1,141 @@
+<div class="drawer-side z-50">
+    <label for="transaction-filter-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+    <div class="bg-base-100 text-base-content h-fit min-h-full w-80 ps-3 py-0">
+        <div class="flex items-center ps-3 py-3">
+            <div class="font-bold text-lg">Lọc giao dich</div>
+            <label for="transaction-filter-drawer" class="btn btn btn-ghost btn-circle ml-auto">
+                <span id="close-filter" class="fill-current h-3 w-3 flex items-center justify-center">
+                    <i class="fa-solid fa-xmark fa-lg"></i>
+                </span>
+            </label>
+        </div>
+        <div class="px-3 pb-3">
+            <form action="#" class="space-y-3">
+                <div>
+                    <div class="text-sm font-bold">Theo Ngày</div>
+                    <div>
+                        <div class="grid grid-cols-5 my-2">
+                            <div class="col-span-1 ms-3">Từ:</div>
+                            <label class="input input-bordered input-sm flex items-center gap-2 col-span-4">
+                                <input id="filter-start" name="start" type="text" class="grow"
+                                    placeholder="dd-mm-yyyy" />
+                                <span class="fill-current h-3 w-3 flex items-center justify-center">
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                </span>
+                            </label>
+                        </div>
+                        <div class="grid grid-cols-5 my-2">
+                            <div class="col-span-1 ms-3">Đến:</div>
+                            <label class="input input-bordered input-sm flex items-center gap-2 col-span-4">
+                                <input id="filter-end" name="end" type="text" class="grow" placeholder="dd-mm-yyyy" />
+                                <span class="fill-current h-3 w-3 flex items-center justify-center">
+                                    <i class="fa-regular fa-calendar-days"></i>
+                                </span>
+                            </label>
+                        </div>
+                    </div>
+                    <script>
+                        const $datepickerEl1 = document.getElementById("filter-start");
+                        const $datepickerEl2 = document.getElementById("filter-end");
+                        const options = {
+                            format: "dd-mm-yyyy",
+                            weekStart: 1,
+                            inputs: [$datepickerEl1, $datepickerEl2],
+                        };
+                        new DateRangePicker($datepickerEl1, options)
+                    </script>
+                </div>
+
+                <div>
+                    <div class="text-sm font-bold">Theo Loại</div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="radio" name="type" class="radio radio-sm" />
+                            <span class="label-text">Thu nhập</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="radio" name="type" class="radio radio-sm" />
+                            <span class="label-text">Chi tiêu</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-sm font-bold">Theo Số Tiền</div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="radio" name="amount" class="radio radio-sm" />
+                            <span class="label-text">&le; 100,000 đ</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="radio" name="amount" class="radio radio-sm" />
+                            <span class="label-text">&le; 1,000,000 đ</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="radio" name="amount" class="radio radio-sm" />
+                            <span class="label-text">&le; 10,000,000 đ</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="radio" name="amount" class="radio radio-sm" />
+                            <span class="label-text">&le; 100,000,000 đ</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="radio" name="amount" class="radio radio-sm" />
+                            <span class="label-text">&ge; 100,000,000 đ</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-sm font-bold">Theo Hạng Mục</div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="checkbox" name="category" class="checkbox checkbox-sm" />
+                            <span class="label-text">Hang muc 1</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="checkbox" name="category" class="checkbox checkbox-sm" />
+                            <span class="label-text">Hang muc 1</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="checkbox" name="category" class="checkbox checkbox-sm" />
+                            <span class="label-text">Hang muc 1</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="checkbox" name="category" class="checkbox checkbox-sm" />
+                            <span class="label-text">Hang muc 1</span>
+                        </label>
+                    </div>
+                    <div class="form-control">
+                        <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+                            <input type="checkbox" name="category" class="checkbox checkbox-sm" />
+                            <span class="label-text">Hang muc 1</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="flex gap-2 justify-end">
+                    <label for="transaction-filter-drawer" class="btn btn-sm btn-outline">Huỷ bỏ</label>
+                    <button type="reset" class="btn btn-sm btn-outline">Làm mới</button>
+                    <button type="submit" class="btn btn-sm btn-primary">Lọc</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

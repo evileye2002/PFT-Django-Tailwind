@@ -1,0 +1,55 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+  <section name="transaction-history" id="transaction-history" class="flex justify-center">
+    <div class="p-3 w-full md:w-[92%]">
+      <div class="flex sm:items-center gap-y-3 flex-col sm:flex-row shadow-md dark:shadow-neutral dark:bg-base-200 p-3 rounded-lg">
+        <div class="font-bold sm:me-auto">Lịch sử giao dịch</div>
+        <div class="flex items-center gap-x-3">
+          <div bulk-delete-btn class="btn btn-sm btn-error scale-up-center hidden">
+            <span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></span>
+            Bulk Delete
+          </div>
+          <label class="input input-bordered input-sm flex items-center gap-2">
+            <span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input name="s" type="text" class="grow" placeholder="Tìm kiếm" />
+            <kbd class="kbd kbd-sm">Ctrl</kbd>
+            <kbd class="kbd kbd-sm">K</kbd>
+          </label>
+          <label for="transaction-filter-drawer" class="drawer-button btn btn-sm"><span id="filter-transaction-btn" class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-filter"></i></span></label>
+          <label for="add-transaction-modal" class="btn btn-sm"><span id="add-transaction-btn" class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-plus fa-lg"></i></span></label>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto mt-3">
+        {% include 'partial/transaction/table-transaction.html' %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Add Transaction Modal -->
+  <input type="checkbox" id="add-transaction-modal" class="modal-toggle" />
+  <div class="modal z-40" role="dialog">
+    {% include 'partial/transaction/add-transaction-form.html' %}
+
+    <label class="modal-backdrop" for="add-transaction-modal">Close</label>
+  </div>
+
+  <!-- Detail Transaction Modal -->
+  <input type="checkbox" id="transaction-detail-modal" class="modal-toggle" onchange="onDetailModalClose(event,'detail-transaction-modal-box')" />
+  <div class="modal z-40" role="dialog">
+    <div id="detail-transaction-modal-box" class="modal-box h-80">
+      <div class="flex justify-center items-center h-full">
+        <span class="loading loading-spinner loading-lg"></span>
+      </div>
+    </div>
+
+    <label class="modal-backdrop" for="transaction-detail-modal">Close</label>
+  </div>
+
+  <!-- Filter Transaction Drawer -->
+  <div class="drawer drawer-end">
+    <input id="transaction-filter-drawer" type="checkbox" class="drawer-toggle" />
+    {% include 'partial/transaction/filter-transaction-form.html' %}
+  </div>
+{% endblock %}

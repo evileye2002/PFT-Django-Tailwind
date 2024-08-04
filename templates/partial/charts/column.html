@@ -1,0 +1,18 @@
+<div class="">
+  <div class="flex items-center">
+    <div class="text-gray-500">Thu nhập & Chi tiêu</div>
+
+    <form method="get" action="/" class="flex gap-3 ml-auto">
+        <select name="type" class="select select-sm select-bordered" onchange="this.form.submit()">
+            {% comment %} <option value="today" {% if report_type == "today" %} selected {% endif %}>Theo Ngày</option> {% endcomment %}
+            <option value="week" {% if report_type == "week" %} selected {% endif %}>Theo Tuần</option>
+            <option value="month" {% if report_type == "month" %} selected {% endif %}>Theo Tháng</option>
+            <option value="year" {% if report_type == "year" %} selected {% endif %}>Theo Năm</option>
+        </select>
+    </form>
+  </div>
+  <div id="column-chart" class="text-xl font-bold" data-chart-income="{{ cc_income }}" data-chart-expense="{{ cc_expense }}"></div>
+  <script>
+    columnChart()
+  </script>
+</div>

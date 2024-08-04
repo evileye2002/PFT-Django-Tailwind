@@ -1,0 +1,155 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* HTMX */
+.htmx-indicator {
+  display: none;
+}
+
+.htmx-request .htmx-indicator {
+  display: inline;
+}
+
+.htmx-request.htmx-indicator {
+  display: inline;
+}
+/* HTMX */
+
+/* DaisyUI */
+.alert-hide {
+  animation: alert-hide 0.25s ease-out forwards;
+}
+
+@keyframes alert-hide {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+}
+/* DaisyUI */
+
+/* flowbite-datepicker */
+.datepicker-header > .datepicker-controls {
+  @apply flex justify-between mb-2;
+}
+
+.datepicker-footer > .datepicker-controls {
+  @apply flex space-x-2 rtl:space-x-reverse mt-2;
+}
+
+.datepicker-picker {
+  @apply inline-block rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4;
+}
+
+.prev-btn {
+  @apply btn btn-sm btn-ghost;
+}
+
+.prev-btn > svg {
+  @apply w-4 h-4 rtl:rotate-180 text-gray-800 dark:text-white;
+}
+
+.next-btn {
+  @apply btn btn-sm btn-ghost;
+}
+
+.next-btn > svg {
+  @apply w-4 h-4 rtl:rotate-180 text-gray-800 dark:text-white;
+}
+
+.view-switch {
+  @apply btn btn-sm btn-ghost;
+}
+
+.today-btn {
+  @apply btn btn-sm btn-primary w-1/2;
+}
+
+.clear-btn {
+  @apply btn btn-sm btn-outline w-1/2;
+}
+
+.days-of-week {
+  @apply grid grid-cols-7 mb-1;
+}
+
+.days-of-week > span {
+  @apply text-center h-6 leading-6 text-sm font-medium text-gray-500 dark:text-gray-400;
+}
+
+.days > .datepicker-grid {
+  @apply w-64 grid grid-cols-7;
+}
+
+.datepicker-view.months,
+.datepicker-view.years,
+.datepicker-view.decades {
+  @apply w-64 grid grid-cols-4;
+}
+
+.datepicker-cell.month,
+.datepicker-cell.year,
+.datepicker-cell.decade {
+  @apply btn btn-sm btn-ghost;
+}
+
+.datepicker-cell.day {
+  @apply hover:bg-gray-100 dark:hover:bg-gray-600 block flex-1 leading-9 border-0 cursor-pointer text-center text-gray-900 dark:text-white font-semibold text-sm;
+}
+
+.datepicker-cell.day.selected {
+  @apply text-primary-content bg-primary dark:!bg-primary;
+}
+
+.datepicker-cell.day.range-start {
+  @apply dark:bg-gray-600 !rounded-l-lg;
+}
+
+.datepicker-cell.day.range-end {
+  @apply dark:bg-gray-600 !rounded-r-lg;
+}
+
+.datepicker-cell.day.range {
+  @apply bg-gray-200 dark:bg-gray-600;
+}
+/* flowbite-datepicker */
+
+/* ApexChart */
+.apexcharts-text.apexcharts-xaxis-label {
+  @apply text-xs font-normal fill-gray-500 dark:fill-gray-400;
+}
+
+.apexcharts-legend-text {
+  @apply !text-base-content;
+}
+
+.apexcharts-text.apexcharts-datalabel-label {
+  @apply dark:!fill-gray-400;
+}
+
+.apexcharts-text.apexcharts-datalabel-value {
+  @apply dark:!fill-white;
+}
+/* ApexChart */
+
+/* Animista */
+.scale-up-center {
+  animation: scale-up-center 0.15s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+@keyframes scale-up-center {
+  0% {
+    transform: scale(0.9);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+/* Animista */

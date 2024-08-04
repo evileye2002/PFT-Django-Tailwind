@@ -1,0 +1,69 @@
+<div id="sign-up-block" class="card-body p-4 sm:p-8 gap-0">
+  <!-- Title -->
+  <h1 class="card-title mb-4">Đăng ký tài khoản mới</h1>
+
+  <!-- Form -->
+  <form id="sign-up-form" class="space-y-4" action="#">
+    {% csrf_token %}
+
+    <div class="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-6">
+      <div class="sm:col-span-3">
+        <label class="input input-bordered input-sm py-5 flex items-center gap-2"><input type="text" name="last_name" class="grow" placeholder="Họ" value="{{ form.last_name.value }}" required minlength="3" maxlength="150" /></label>
+        {% include 'component/form-field-error.html' with field_errors=form.last_name.errors %}
+      </div>
+      <div class="sm:col-span-3">
+        <label class="input input-bordered input-sm py-5 flex items-center gap-2"><input type="text" name="first_name" class="grow" placeholder="Tên" value="{{ form.first_name.value }}" required minlength="3" maxlength="150" /></label>
+        {% include 'component/form-field-error.html' with field_errors=form.first_name.errors %}
+      </div>
+    </div>
+
+    <div class="">
+      <label class="input input-bordered input-sm py-5 flex items-center gap-2">
+        <span class="fill-current h-4 w-4 flex items-center justify-center"><i class="fa-solid fa-envelope"></i></span>
+        <input type="email" name="email" class="grow" placeholder="Email" value="{{ form.email.value }}" required maxlength="150" />
+      </label>
+      {% include 'component/form-field-error.html' with field_errors=form.email.errors %}
+    </div>
+
+    <div class="">
+      <label class="input input-bordered input-sm py-5 flex items-center gap-2">
+        <span class="fill-current h-4 w-4 flex items-center justify-center"><i class="fa-solid fa-user"></i></span>
+        <input type="text" name="username" class="grow" placeholder="Tên tài khoản" value="{{ form.username.value }}" required minlength="6" maxlength="150" hx-on:htmx:validation:validate="htmx.find('#sign-up-form').reportValidity()" />
+      </label>
+      {% include 'component/form-field-error.html' with field_errors=form.username.errors %}
+    </div>
+
+    <div class="">
+      {% include 'component/account/password-input.html' with type='password' name='password1' placeholder='Mật khẩu' value=form.password1.value %}
+      {% include 'component/form-field-error.html' with field_errors=form.password1.errors %}
+    </div>
+
+    <div class="">
+      {% include 'component/account/password-input.html' with type='password' name='password2' placeholder='Nhập lại mật khẩu' value=form.password2.value %}
+      {% include 'component/form-field-error.html' with field_errors=form.password2.errors %}
+    </div>
+
+    {% include 'component/non-field-form-error.html' %}
+
+    <div class="card-actions">
+      <label class="btn btn-primary w-full" hx-post="{% url 'htmx-sign-up' %}" hx-trigger="click" hx-target="#sign-up-block" hx-swap="outerHTML" hx-disabled-elt="this" hx-validate="true">Đăng ký</label>
+    </div>
+  </form>
+  {% comment %} <div class="divider">OR</div>
+
+  <div class="flex">
+    <button class="btn btn-outline w-full">
+      <svg xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" class="h-6 w-6" viewBox="0 0 48 48">
+        <path fill="#fbc02d" d="M43.611,20.083H42V20H24v8h11.303c-1.649,4.657-6.08,8-11.303,8c-6.627,0-12-5.373-12-12	s5.373-12,12-12c3.059,0,5.842,1.154,7.961,3.039l5.657-5.657C34.046,6.053,29.268,4,24,4C12.955,4,4,12.955,4,24s8.955,20,20,20	s20-8.955,20-20C44,22.659,43.862,21.35,43.611,20.083z"></path>
+        <path fill="#e53935" d="M6.306,14.691l6.571,4.819C14.655,15.108,18.961,12,24,12c3.059,0,5.842,1.154,7.961,3.039	l5.657-5.657C34.046,6.053,29.268,4,24,4C16.318,4,9.656,8.337,6.306,14.691z"></path>
+        <path fill="#4caf50" d="M24,44c5.166,0,9.86-1.977,13.409-5.192l-6.19-5.238C29.211,35.091,26.715,36,24,36	c-5.202,0-9.619-3.317-11.283-7.946l-6.522,5.025C9.505,39.556,16.227,44,24,44z"></path>
+        <path fill="#1565c0" d="M43.611,20.083L43.595,20L42,20H24v8h11.303c-0.792,2.237-2.231,4.166-4.087,5.571	c0.001-0.001,0.002-0.001,0.003-0.002l6.19,5.238C36.971,39.205,44,34,44,24C44,22.659,43.862,21.35,43.611,20.083z"></path>
+      </svg>Sign up with Google
+    </button>
+  </div> {% endcomment %}
+
+  <p class="text-sm font-light mt-6">
+    Đã có tài khoản?
+    <a href="{% url 'sign-in' %}" class="font-medium link link-primary link-hover">Đăng nhập</a>
+  </p>
+</div>

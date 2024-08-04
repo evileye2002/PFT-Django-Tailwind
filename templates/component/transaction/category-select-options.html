@@ -1,0 +1,26 @@
+{% if not form.category.value %}
+<option value="" selected>Chọn hạng mục</option>
+
+{% for c in categories %}
+<option value="{{ c.id }}">{{ c.name|title }}</option>
+{% endfor %}
+
+{% elif type == "add" %}
+<option value="" selected>Chọn hạng mục</option>
+
+{% for c in categories %}
+<option value="{{ c.id }}">{{ c.name|title }}</option>
+{% endfor %}
+
+{% else %}
+<option value="">Chọn hạng mục</option>
+
+{% for c in categories %}
+{% if c.id|stringformat:"s" == form.category.value|stringformat:"s" %}
+<option value="{{ c.id }}" selected>{{ c.name|title }}</option>
+{% else %}
+<option value="{{ c.id }}">{{ c.name|title }}</option>
+{% endif %}
+{% endfor %}
+
+{% endif %}

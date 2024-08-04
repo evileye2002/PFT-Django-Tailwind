@@ -1,0 +1,67 @@
+<form action="/" class="flex gap-3">
+
+    <select name="type" class="select select-sm select-bordered" onchange="this.form.submit()">
+        <option value="day" {% if report_type == "day" %}selected{% endif %}>Theo Ngày</option>
+        <option value="month" {% if report_type == "month" %}selected{% endif %}>Theo Tháng</option>
+        <option value="year" {% if report_type == "year" %}selected{% endif %}>Theo Năm</option>
+    </select>
+
+    {% if report_type == "day" %}
+    <div id="range-picker" class="flex gap-3">
+        <label class="input input-bordered input-sm flex items-center gap-2">
+            <input id="filter-start" name="start" type="text" class="grow" placeholder="Từ ngày" autocomplete="off"
+                value="{{start_string}}" />
+            <span class="fill-current h-3 w-3 flex items-center justify-center">
+                <i class="fa-regular fa-calendar-days"></i>
+            </span>
+        </label>
+
+        <label class="input input-bordered input-sm flex items-center gap-2">
+            <input id="filter-end" name="end" type="text" class="grow" placeholder="Đến ngày" autocomplete="off"
+                value="{{end_string}}" />
+            <span class="fill-current h-3 w-3 flex items-center justify-center">
+                <i class="fa-regular fa-calendar-days"></i>
+            </span>
+        </label>
+        <script>
+            (function () {
+                const $datepickerEl1 = document.getElementById("filter-start");
+                const $datepickerEl2 = document.getElementById("filter-end");
+                const options = {
+                    format: "dd-mm-yyyy",
+                    weekStart: 1,
+                    inputs: [$datepickerEl1, $datepickerEl2],
+                };
+                new DateRangePicker($datepickerEl1, options)
+            })()
+        </script>
+    </div>
+
+    {% elif report_type == "month" %}
+    <div id="range-picker" class="flex gap-3">
+        <select name="start" class="select select-sm select-bordered">
+            <option value="" {% if not start_string %}selected{% endif %}>Từ tháng</option>
+            {% for _ in ""|ljust:12 %}
+            <option value="{{ forloop.counter }}"
+                {% if forloop.counter|stringformat:"d" == start_string %}selected{% endif %}>Từ Tháng
+                {{ forloop.counter|stringformat:"02d" }}</option>
+            {% endfor %}
+        </select>
+        <select name="end" class="select select-sm select-bordered">
+            <option value="" {% if not end_string %}selected{% endif %}>Đến tháng</option>
+            {% for _ in ""|ljust:12 %}
+            <option value="{{ forloop.counter }}"
+                {% if forloop.counter|stringformat:"d" == end_string %}selected{% endif %}>Đến Tháng
+                {{ forloop.counter|stringformat:"02d" }}</option>
+            {% endfor %}
+        </select>
+    </div>
+
+    {% elif report_type == "year" %}
+    <input name="start" type="text" placeholder="Từ năm" class="input input-sm input-bordered" autocomplete="off" />
+    <input name="end" type="text" placeholder="Đến năm" class="input input-sm input-bordered" autocomplete="off" />
+    {% endif %}
+
+    <button type="submit" class="btn btn-sm btn-primary">Lọc báo cáo</button>
+
+</form>

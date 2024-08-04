@@ -1,0 +1,57 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+  <section name="category" id="category" class="flex justify-center">
+    <div class="p-3 w-full md:w-[92%]">
+      <div class="flex sm:items-center gap-y-3 flex-col sm:flex-row shadow-md dark:shadow-neutral dark:bg-base-200 p-3 rounded-lg">
+        <div class="font-bold sm:me-auto">Hạng mục cá nhân</div>
+
+        <!-- Category Actions -->
+        <div class="flex items-center gap-x-3">
+          <div bulk-delete-btn class="btn btn-sm btn-error scale-up-center hidden">
+            <span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></span>
+            Bulk Delete
+          </div>
+          <label class="input input-bordered input-sm flex items-center gap-2">
+            <span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-magnifying-glass"></i></span>
+            <input type="text" name="s" class="grow" placeholder="Tìm kiếm" />
+            <kbd class="kbd kbd-sm">Ctrl</kbd>
+            <kbd class="kbd kbd-sm">K</kbd>
+          </label>
+          <label for="filter-category-drawer" class="drawer-button btn btn-sm"><span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-filter"></i></span></label>
+          <label for="add-category-modal" class="btn btn-sm"><span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-plus fa-lg"></i></span></label>
+        </div>
+      </div>
+
+      <div class="overflow-x-auto mt-3">
+        {% include 'partial/category/category-table.html' %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Add Category Modal -->
+  <input type="checkbox" id="add-category-modal" class="modal-toggle" />
+  <div class="modal z-40" role="dialog">
+    {% include 'partial/category/add-category-form.html' %}
+
+    <label class="modal-backdrop" for="add-category-modal">Close</label>
+  </div>
+
+  <!-- Detail Category Modal -->
+  <input type="checkbox" id="detail-category-modal" class="modal-toggle" onchange="onDetailModalClose(event,'detail-category-modal-box')" />
+  <div class="modal z-40" role="dialog">
+    <div id="detail-category-modal-box" class="modal-box h-80">
+      <div class="flex justify-center items-center h-full">
+        <span class="loading loading-spinner loading-lg"></span>
+      </div>
+    </div>
+
+    <label class="modal-backdrop" for="detail-category-modal">Close</label>
+  </div>
+
+  <!-- Filter Category Drawer -->
+  <div class="drawer drawer-end">
+    <input id="filter-category-drawer" type="checkbox" class="drawer-toggle" />
+    {% include 'partial/category/filter-category-form.html' %}
+  </div>
+{% endblock %}

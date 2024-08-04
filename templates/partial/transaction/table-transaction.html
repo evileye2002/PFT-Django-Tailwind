@@ -1,0 +1,39 @@
+<div id="table-transaction-block" hx-swap-oob="true">
+  <table id="transaction-history-table" class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>
+          {% if transactions.count > 1 %}
+            <label class="flex items-center justify-center"><input all-row-selection type="checkbox" class="checkbox checkbox-sm" onchange="selectAllRow(event)" /></label>
+          {% endif %}
+        </th>
+        <th>Tên giao dịch</th>
+        <th>Hạng mục</th>
+        <th>Số tiền</th>
+        <th>Ngày</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="transaction-table-tbody">
+      {% for transaction in transactions %}
+        {% include 'component/transaction/transaction-row.html' with t=transaction %}
+      {% endfor %}
+    </tbody>
+    <!-- foot -->
+    {% if transactions.count > 10 %}
+      <tfoot>
+        <tr>
+          <th></th>
+          <th>Tên giao dịch</th>
+          <th>Hạng mục</th>
+          <th>Số tiền</th>
+          <th>Ngày</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    {% endif %}
+  </table>
+
+  <div class="text-center font-bold p-10 table {% if transactions %}hidden{% endif %}">Không có Lịch sử Giao dịch.</div>
+</div>

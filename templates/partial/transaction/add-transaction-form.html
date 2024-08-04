@@ -1,0 +1,86 @@
+<div id="add-transaction-block" class="modal-box" hx-swap-oob="true">
+    <h3 class="text-lg font-bold mb-3">Thêm Giao Dịch</h3>
+    <div class="">
+        <form id="add-transaction-form" action="#" class="space-y-3">
+            {% csrf_token %}
+
+            <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Tên giao dịch</span>
+                </div>
+                <input name="name" type="text" class="input input-bordered" required minlength="3" maxlength="150" />
+                {% include "component/form-field-error.html" with field_errors=form.name.errors %}
+            </label>
+            <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Hạng mục</span>
+                </div>
+                <select id="add-transaction-category-select" class="select select-bordered" name="category" required>
+                    {% include "component/transaction/category-select-options.html" %}
+                </select>
+                {% include "component/form-field-error.html" with field_errors=form.category.errors %}
+            </label>
+            <label class="form-control w-full">
+                <label for="add-transaction-amount" class="label pt-0">
+                    <span class="label-text">Số tiền</span>
+                </label>
+                <label for="add-transaction-amount" class="input input-bordered flex items-center gap-2 px-0">
+                    <label class="btn btn-ghost btn-sm swap ms-2 border-0">
+                        <input id="add-transaction-is-income-input" type="checkbox" name="is-income"
+                            {% if form.type.value == 1 %}checked{% endif %} hx-post="{% url "htmx-category-option" %}"
+                            hx-target="#add-transaction-category-select" hx-trigger="change" hx-swap="innerHTML" />
+
+                        <span class="swap-off fill-current h-4 w-4 flex items-center justify-center">
+                            <div class="btn btn-error btn-sm">
+                                <i class="fa-solid fa-minus"></i>
+                            </div>
+                        </span>
+                        <span class="swap-on fill-current h-4 w-4 flex items-center justify-center">
+                            <div class="btn btn-success btn-sm">
+                                <i class="fa-solid fa-plus"></i>
+                            </div>
+                        </span>
+                    </label>
+                    <input id="add-transaction-amount" type="text" name="amount" class="grow"
+                        onchange="amountValueChange(event)" required onkeyup="this.setCustomValidity('')"
+                        hx-on:htmx:validation:validate="isNumber(this); htmx.find('#add-transaction-form').reportValidity();" />
+                    <div class="btn btn-sm btn-ghost me-2">đ</div>
+                </label>
+                {% include "component/form-field-error.html" with field_errors=form.amount.errors %}
+            </label>
+            <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Ngày giao dịch</span>
+                </div>
+                <label class="input input-bordered flex items-center gap-2">
+                    <input id="add-transaction-date" name="date" type="text" class="grow" placeholder="dd-mm-yyyy"
+                        required />
+                    <span class="fill-current h-3 w-3 flex items-center justify-center">
+                        <i class="fa-regular fa-calendar-days fa-lg"></i>
+                    </span>
+                </label>
+                <script>
+                    initDatepicker("add-transaction-date")
+                </script>
+                {% include "component/form-field-error.html" with field_errors=form.date.errors %}
+            </label>
+
+            {% comment %} <label class="form-control w-full">
+                <div class="label pt-0">
+                    <span class="label-text">Mô tả</span>
+                </div>
+                <textarea name="description" class="textarea textarea-bordered h-24"></textarea>
+            </label> {% endcomment %}
+
+            <div class="flex gap-2 justify-end">
+                <label for="add-transaction-modal" class="btn btn-sm btn-outline">Huỷ bỏ</label>
+                <button id="reset-add-transaction-btn" type="reset" class="btn btn-sm btn-outline">Làm mới</button>
+                <label class="btn btn-sm btn-primary" hx-post="{% url "htmx-add-transaction" %}" hx-trigger="click"
+                    hx-disabled-elt="this" hx-validate="true" hx-swap='none'
+                    hx-on="addTransactionSuccessfully: toggleModal('add-transaction-modal');">
+                    Thêm
+                </label>
+            </div>
+        </form>
+    </div>
+</div>

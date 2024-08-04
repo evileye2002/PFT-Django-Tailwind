@@ -1,0 +1,18 @@
+<div class="flex items-center justify-center">
+  <label class="swap swap-rotate btn btn-ghost btn-circle">
+    <!-- this hidden checkbox controls the state -->
+    <input theme-swap type="checkbox" value="dracula" onchange="themeChanger.setTheme(themeChanger.getReverse())" />
+    <!-- sun icon -->
+    <span class="swap-off flex items-center justify-center h-10 w-10"><i class="fa-solid fa-sun fa-xl"></i></span>
+    <!-- moon icon -->
+    <span class="swap-on flex items-center justify-center h-10 w-10"><i class="fa-solid fa-moon fa-xl"></i></span>
+  </label>
+  <script>
+    ;(function () {
+      const themeSwap = document.querySelector('[theme-swap]')
+      let theme = themeChanger.getTheme()
+    
+      if (themeSwap.value != theme) themeSwap.checked = true
+    })()
+  </script>
+</div>
