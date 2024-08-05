@@ -37,8 +37,7 @@
         {% include "component/non-field-form-error.html" %}
 
         <div class="card-actions">
-
-            <label class="btn btn-primary w-full" hx-post="{{ request|get_all_quert_parameters:"htmx-sign-in" }}"
+            <label id="btn-sign-in" class="btn btn-primary w-full" hx-post="{{ request|get_all_quert_parameters:"htmx-sign-in" }}"
                 hx-trigger="click" hx-target="#sign-in-block" hx-swap="outerHTML" hx-disabled-elt="this"
                 hx-validate="true">
                 Đăng nhập
