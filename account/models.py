@@ -9,6 +9,10 @@ class UpdateBalanceOperationType:
 
 
 class UserCustom(AbstractUser):
+    avatar = models.ImageField(
+        upload_to="images/avatars/",
+        default="default/avatar.jpg",
+    )
     balance = models.FloatField(verbose_name="Số dư", default=0)
 
     def update_balance(self, amount, operation=UpdateBalanceOperationType.ADD):

@@ -1,11 +1,13 @@
-{% include "partial/transaction/table-transaction.html" %}
+{% include 'partial/transaction/table-transaction.html' %}
 
-{% if type == "add" %}
-{% include "partial/transaction/add-transaction-form.html" %}
-{% elif type == "edit" %}
-{% include "partial/transaction/detail-transaction-form.html" %}
+{% if type == 'add' %}
+  {% include 'partial/transaction/add-transaction-form.html' %}
+{% elif type == 'edit' %}
+  {% include 'partial/transaction/detail-transaction-form.html' %}
 {% endif %}
 
-<div id="toast" class="toast" hx-swap-oob="beforeend">
-    {% include "component/alert.html" with alert_type=message.type alert_msg=message.value %}
-</div>
+{% if message %}
+  <div id="toast" class="toast" hx-swap-oob="beforeend">
+    {% include 'component/alert.html' with alert_type=message.type alert_msg=message.value %}
+  </div>
+{% endif %}

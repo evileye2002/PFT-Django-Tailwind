@@ -8,6 +8,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>ExMoney {{ page_info.title }}</title>
+    <link rel="shortcut icon" type="image/png" href="{% static 'imgs/avatar.jpg' %}" />
 
     <!-- CSS -->
     {% tailwind_css %}
@@ -38,7 +39,7 @@
     </main>
 
     {% include 'component/confirm-modal.html' %}
-    <div id="toast" class="toast toast-center active items-center z-[100]"></div>
+    <div id="toast" class="toast toast-center active items-center z-[100]" hx-swap-oob="beforeend"></div>
 
     {% include 'component/loading.html' %}
     {% include 'base/footer.html' %}

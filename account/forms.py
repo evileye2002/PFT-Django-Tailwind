@@ -1,5 +1,9 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.forms import (
+    UserCreationForm,
+    AuthenticationForm,
+    PasswordChangeForm,
+)
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -31,3 +35,10 @@ class SignInForm(AuthenticationForm):
     username = forms.CharField(max_length=150, required=True)
     password = forms.CharField(required=True)
     remember = forms.BooleanField(required=False)
+
+
+class UpdateUserInfoForm(forms.ModelForm):
+
+    class Meta:
+        model = User
+        fields = ["avatar", "last_name", "first_name", "email"]

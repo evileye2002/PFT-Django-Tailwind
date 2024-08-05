@@ -12,15 +12,19 @@ def home(request):
     c_type = request.GET.get("type", "week")
 
     try:
-        cc_income, cc_expense = ColumnChart(
+        col_chart = ColumnChart(
             request.user,
             c_type,
             start_str,
             end_str,
-        ).get_data_str()
+        )
+        cc_income, cc_expense = col_chart.get_data_str()
+        avg_income, avg_expense = col_chart.get_avg()
     except Exception as ex:
         cc_income = None
         cc_expense = None
+        avg_income = None
+        avg_expense = None
 
     dn_colors = []
     dn_income, dn_expense = DonutChart(
@@ -38,6 +42,8 @@ def home(request):
         "cc_expense": cc_expense,
         "dn_income": dn_income,
         "dn_expense": dn_expense,
+        "avg_income": avg_income,
+        "avg_expense": avg_expense,
         "dn_colors": dn_colors,
     }
 

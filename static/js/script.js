@@ -193,6 +193,19 @@ function onDetailFormChanged($form, $saveBtn, initialData) {
   else $saveBtn.setAttribute("disabled", true);
 }
 
+function previewAvatar(e, imgID) {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = function (event) {
+      const imgElement = document.getElementById(imgID);
+      imgElement.src = event.target.result;
+      imgElement.style.display = "block";
+    };
+    reader.readAsDataURL(file);
+  }
+}
+
 document.addEventListener("htmx:confirm", function (e) {
   e.preventDefault();
   if (e.detail.question) {

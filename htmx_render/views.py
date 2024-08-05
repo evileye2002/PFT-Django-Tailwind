@@ -1,7 +1,9 @@
 from django.http import HttpResponse
 from django.shortcuts import render, resolve_url
-from django.contrib.auth import authenticate, login, logout
-from account.forms import SignInForm, SignUpForm
+from django.contrib.auth import authenticate, login, update_session_auth_hash
+from django.contrib.auth.forms import PasswordChangeForm
+
+from account.forms import SignInForm, SignUpForm, UpdateUserInfoForm
 from account.models import UpdateBalanceOperationType
 from core.forms import TransactionForm, CategoryForm
 from core.models import Transaction, TransactionType, Category
@@ -305,16 +307,50 @@ def delete_transaction(request, id):
     return response
 
 
+def filter_transaction(request):
+    transactions = Transaction.objects.filter(user=request.user)
+    search_str = request.GET.get("s", "")
+
+    if search_str:
+        transactions = Transaction.objects.filter(name__icontains=search_str)
+
+    ctx = {
+        "type": "search",
+        "search_str": search_str,
+        "transactions": transactions,
+    }
+
+    return render(request, "component/transaction/transaction-update.html", ctx)
+
+
+def filter_category(request):
+    categories = Category.objects.filter(user=request.user)
+    search_str = request.GET.get("s", "")
+
+    if search_str:
+        categories = Category.objects.filter(name__icontains=search_str)
+
+    ctx = {
+        "type": "search",
+        "search_str": search_str,
+        "categories": categories,
+    }
+
+    return render(request, "component/category/category-update.html", ctx)
+
+
 def sign_in(request):
     form = SignInForm()
     next_url = request.GET.get("next")
+    remember = None
 
     if request.method == "POST":
         form = SignInForm(request, data=request.POST)
+        remember = request.POST.get("remember", "off")
+
         if form.is_valid():
             username = request.POST.get("username")
             password = request.POST.get("password")
-            remember = request.POST.get("remember")
             user = authenticate(request, username=username, password=password)
 
             if user is not None:
@@ -335,6 +371,7 @@ def sign_in(request):
     non_field_errors = form.non_field_errors()
     ctx = {
         "form": form,
+        "remember_value": remember,
         "field_errors": field_errors,
         "non_field_errors": non_field_errors,
     }
@@ -364,3 +401,59 @@ def sign_up(request):
     }
 
     return render(request, "partial/account/sign-up-form.html", ctx)
+
+
+def update_user_info(request):
+    form = UpdateUserInfoForm(instance=request.user)
+    message = None
+
+    if request.method == "POST":
+        form = UpdateUserInfoForm(request.POST, request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            message = {
+                "type": "alert-success",
+                "value": "Thay đổi thông tin thành công.",
+            }
+        else:
+            message = {
+                "type": "alert-error",
+                "value": "Thay đổi thông tin thất bại.",
+            }
+
+    ctx = {
+        "form": form,
+        "message": message,
+    }
+    return render(request, "partial/account/update-user-info-form.html", ctx)
+
+
+def change_password(request):
+    form = PasswordChangeForm(request.user)
+    message = None
+
+    if request.method == "POST":
+        form = PasswordChangeForm(request.user, request.POST)
+        if form.is_valid():
+            user = form.save()
+            update_session_auth_hash(request, user)
+
+            form = None
+            message = {
+                "type": "alert-success",
+                "value": "Đổi mật khhẩu thành công.",
+            }
+        else:
+            message = {
+                "type": "alert-error",
+                "value": "Đổi mật khhẩu thất bại.",
+            }
+
+    ctx = {
+        "form": form,
+        "message": message,
+    }
+    response = render(request, "partial/account/change-password-form.html", ctx)
+    if "success" in message["type"]:
+        response["HX-TRIGGER"] = "changePasswordSuccessfully"
+    return response

@@ -4,6 +4,8 @@ from . import views
 urlpatterns = [
     path("sign-in", views.sign_in, name="htmx-sign-in"),
     path("sign-up", views.sign_up, name="htmx-sign-up"),
+    path("update-user-info", views.update_user_info, name="htmx-update-user-info"),
+    path("change-password", views.change_password, name="htmx-change-password"),
 ]
 
 transaction_url_patterns = [
@@ -26,6 +28,11 @@ transaction_url_patterns = [
         "delete-transaction/<int:id>",
         views.delete_transaction,
         name="htmx-delete-transaction",
+    ),
+    path(
+        "filter-transaction",
+        views.filter_transaction,
+        name="htmx-filter-transaction",
     ),
     path(
         "category-option",
@@ -54,6 +61,11 @@ category_url_patterns = [
         "delete-category/<int:id>",
         views.delete_category,
         name="htmx-delete-category",
+    ),
+    path(
+        "filter-category",
+        views.filter_category,
+        name="htmx-filter-category",
     ),
 ]
 

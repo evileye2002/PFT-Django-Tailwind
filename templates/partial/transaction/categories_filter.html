@@ -1,0 +1,8 @@
+{% for category in categories %}
+  <div class="form-control">
+    <label class="label cursor-pointer justify-normal gap-2 px-0 ms-3">
+      <input type="checkbox" name="category" class="checkbox checkbox-sm" value="{{ category.id }}" />
+      <span class="label-text">{{ category }}</span>
+    </label>
+  </div>
+{% endfor %}

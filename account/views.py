@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from core.models import Transaction, Category
+from .forms import UpdateUserInfoForm
 
 
 def sign_in(request):
@@ -26,6 +27,7 @@ def profile(request):
     ctx = {
         "transaction_count": transaction_count,
         "category_count": category_count,
+        "form": UpdateUserInfoForm(instance=request.user),
     }
 
     return render(request, "account/profile.html", ctx)

@@ -1,0 +1,70 @@
+<div id="change-info-block" class="col-span-4 row-span-2 flex shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg" hx-swap-oob="true">
+  <form id="change-info-form" class="space-y-4 w-full p-3" action="#">
+    {% csrf_token %}
+
+    <div class="flex flex-col justify-center items-center !mt-0">
+      <div class="avatar relative group">
+        <div class="rounded-full w-32 absolute">
+          <label for="avatar-change" class="size-32 hidden group-hover:flex justify-center items-center bg-black bg-opacity-40 cursor-pointer"><i class="fa-solid fa-camera !text-white"></i></label>
+        </div>
+        <div class="rounded-full w-32">
+          <img id="avatar-img" src="{{ user.avatar.url }}" />
+        </div>
+      </div>
+
+      <div class="mt-2">Avatar</div>
+      <input id="avatar-change" name="avatar" type="file" accept="image/*" class="hidden" onchange="previewAvatar(event,'avatar-img')" />
+    </div>
+
+    <div class="">
+      <label class="input input-bordered input-sm py-5 flex items-center gap-2"><input type="text" name="last_name" class="grow" placeholder="Họ" value="{{ form.last_name.value }}" required minlength="3" maxlength="150" hx-on:htmx:validation:validate="htmx.find('#change-info-form').reportValidity();" /></label>
+      {% include 'component/form-field-error.html' with field_errors=form.last_name.errors %}
+    </div>
+
+    <div class="">
+      <label class="input input-bordered input-sm py-5 flex items-center gap-2"><input type="text" name="first_name" class="grow" placeholder="Tên" value="{{ form.first_name.value }}" required minlength="3" maxlength="150" /></label>
+      {% include 'component/form-field-error.html' with field_errors=form.first_name.errors %}
+    </div>
+
+    <div class="">
+      <label class="input input-bordered input-sm py-5 flex items-center gap-2">
+        <span class="fill-current h-4 w-4 flex items-center justify-center"><i class="fa-solid fa-envelope"></i></span>
+        <input type="email" name="email" class="grow" placeholder="Email" value="{{ form.email.value }}" required maxlength="150" />
+      </label>
+      {% include 'component/form-field-error.html' with field_errors=form.email.errors %}
+    </div>
+
+    {% include 'component/non-field-form-error.html' %}
+
+    <div class="flex items-center justify-between">
+      <div class="col-span-4">
+        <label for="change-password-modal" class="link link-secondary link-hover text-sm">
+          <i class="fa-solid fa-lock me-1"></i>
+          Đổi mật khẩu
+        </label>
+      </div>
+      <label id="btn-save-user-info" class="btn btn-primary btn-sm" disabled hx-post="{% url 'htmx-update-user-info' %}" hx-trigger="click" hx-disabled-elt="this" hx-validate="true" hx-swap="none" hx-encoding="multipart/form-data">Lưu thay đổi</label>
+    </div>
+  </form>
+  <script>
+    ;(function () {
+      const $form = document.getElementById('change-info-form')
+      const $saveBtn = document.getElementById('btn-save-user-info')
+      const initialData = new FormData($form)
+    
+      $form.addEventListener('input', function () {
+        onDetailFormChanged($form, $saveBtn, initialData)
+      })
+    })()
+  </script>
+</div>
+
+{% if message %}
+  <div id="toast" class="toast" hx-swap-oob="beforeend">
+    {% include 'component/alert.html' with alert_type=message.type alert_msg=message.value %}
+  </div>
+{% endif %}
+
+{% if 'success' in message.type %}
+  {% include 'component/user-avatar.html' %}
+{% endif %}

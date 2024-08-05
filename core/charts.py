@@ -1,5 +1,5 @@
 from datetime import datetime, date, timedelta
-from django.db.models import Sum
+from django.db.models import Sum, Avg
 from django.db.models.functions import TruncMonth, TruncDay, TruncWeek
 import calendar
 
@@ -87,6 +87,16 @@ class BaseChart:
             return (incomes, expenses)
 
         return (None, None)
+
+    def get_avg(self):
+        avg_income = self.income_filter.aggregate(avg_income=Avg("amount"))[
+            "avg_income"
+        ]
+        avg_expense = self.expense_filter.aggregate(avg_expense=Avg("amount"))[
+            "avg_expense"
+        ]
+
+        return (avg_income, avg_expense)
 
 
 class ColumnChart(BaseChart):

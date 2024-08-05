@@ -20,7 +20,7 @@
           <div class="flex justify-between items-center px-5">
             <div class="">
               <div class="text-gray-500">Thu nhập trung bình</div>
-              <div class="text-xl font-bold pt-3">{{ user.balance|int_comma }} đ</div>
+              <div class="text-xl font-bold pt-3">{{ avg_income|int_comma }} đ</div>
             </div>
             <div class="btn btn-square btn-success">
               <i class="fa-solid fa-arrow-trend-up fa-2xl"></i>
@@ -31,7 +31,7 @@
           <div class="flex justify-between items-center px-5">
             <div class="">
               <div class="text-gray-500">Chi tiêu trung bình</div>
-              <div class="text-xl font-bold pt-3">{{ user.balance|int_comma }} đ</div>
+              <div class="text-xl font-bold pt-3">{{ avg_expense|int_comma }} đ</div>
             </div>
             <div class="btn btn-square btn-error">
               <i class="fa-solid fa-arrow-trend-down fa-2xl"></i>
