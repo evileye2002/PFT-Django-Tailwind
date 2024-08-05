@@ -14,7 +14,7 @@
           </div>
           <label class="input input-bordered input-sm flex items-center gap-2">
             <span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-magnifying-glass"></i></span>
-            <input name="s" type="text" class="grow" placeholder="Tìm kiếm" value="{{ search_str }}" hx-get="{% url 'htmx-filter-transaction' %}" hx-trigger="keyup[keyCode==13], search, keyup changed delay:2s" hx-on:keyup="if (this.value == '') htmx.trigger(this,'search')" hx-swap="none" />
+            <input name="t_name" type="text" class="grow" placeholder="Tìm kiếm" value="{{ search_str }}" hx-get="{% url 'htmx-filter-transaction' %}" hx-trigger="keyup[keyCode==13], search, keyup changed delay:2s" hx-on:keyup="if (this.value == '') htmx.trigger(this,'search')" hx-swap="none" />
             <kbd class="kbd kbd-sm">Ctrl</kbd>
             <kbd class="kbd kbd-sm">K</kbd>
           </label>

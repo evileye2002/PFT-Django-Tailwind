@@ -44,9 +44,7 @@ INSTALLED_APPS = [
     "tailwind",
     "theme",
     "django_browser_reload",
-    # "crispy_forms",
-    # "crispy_daisyui",
-    # "compressor",
+    "django_filters",
 ]
 
 MIDDLEWARE = [

@@ -1,4 +1,9 @@
-{% include 'partial/transaction/table-transaction.html' %}
+{% if type == 'filter' %}
+  {% include 'partial/transaction/table-transaction.html' with transactions=filter.qs %}
+  {{ filter.form }}
+{% else %}
+  {% include 'partial/transaction/table-transaction.html' %}
+{% endif %}
 
 {% if type == 'add' %}
   {% include 'partial/transaction/add-transaction-form.html' %}

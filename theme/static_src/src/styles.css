@@ -103,15 +103,15 @@
 }
 
 .datepicker-cell.day.selected {
-  @apply text-primary-content bg-primary dark:!bg-primary;
+  @apply text-primary-content !bg-primary;
 }
 
 .datepicker-cell.day.range-start {
-  @apply dark:bg-gray-600 !rounded-l-lg;
+  @apply bg-gray-200 dark:bg-gray-600 !rounded-l-lg;
 }
 
 .datepicker-cell.day.range-end {
-  @apply dark:bg-gray-600 !rounded-r-lg;
+  @apply bg-gray-200 dark:bg-gray-600 !rounded-r-lg;
 }
 
 .datepicker-cell.day.range {

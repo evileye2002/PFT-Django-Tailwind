@@ -7,6 +7,7 @@ from account.forms import SignInForm, SignUpForm, UpdateUserInfoForm
 from account.models import UpdateBalanceOperationType
 from core.forms import TransactionForm, CategoryForm
 from core.models import Transaction, TransactionType, Category
+from core.filter import TransactionFilter
 
 
 # Create your views here.
@@ -308,16 +309,15 @@ def delete_transaction(request, id):
 
 
 def filter_transaction(request):
-    transactions = Transaction.objects.filter(user=request.user)
-    search_str = request.GET.get("s", "")
-
-    if search_str:
-        transactions = Transaction.objects.filter(name__icontains=search_str)
+    transaction_filter = TransactionFilter(
+        request.GET,
+        request=request,
+        queryset=Transaction.objects.filter(user=request.user),
+    )
 
     ctx = {
-        "type": "search",
-        "search_str": search_str,
-        "transactions": transactions,
+        "type": "filter",
+        "filter": transaction_filter,
     }
 
     return render(request, "component/transaction/transaction-update.html", ctx)
