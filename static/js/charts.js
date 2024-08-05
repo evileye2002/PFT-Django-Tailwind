@@ -146,7 +146,17 @@ function donutChart(id) {
 
   const options = {
     series: values,
-    colors: ["#1C64F2", "#16BDCA", "#FDBA8C", "#E74694"],
+    colors: [
+      "#1C64F2",
+      "#16BDCA",
+      "#FDBA8C",
+      "#E74694",
+      "#00D9DC",
+      "#FC0000",
+      "#00D700",
+      "#00A2FF",
+      "#FF9EAC",
+    ],
     chart: {
       height: 320,
       width: "100%",
