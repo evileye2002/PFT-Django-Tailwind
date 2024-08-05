@@ -25,39 +25,51 @@ class SignInTest(LiveServerTestCase):
         self.selenium.implicitly_wait(self.timeout)
 
     def test_case_01(self):
-        driver = self.selenium
-        driver.get("http://localhost:8000/account/sign-in")
+        self.selenium.get("http://localhost:8000/account/sign-in")
 
-        username_input = driver.find_element(By.NAME, "username")
-        password_input = driver.find_element(By.NAME, "password")
-        sign_in_btn = driver.find_element(By.ID, "btn-sign-in")
+        username_input = self.selenium.find_element(By.NAME, "username")
+        password_input = self.selenium.find_element(By.NAME, "password")
+        sign_in_btn = self.selenium.find_element(By.ID, "btn-sign-in")
 
         username_input.send_keys("admin")
         password_input.send_keys("kh@nh2002")
         sign_in_btn.click()
 
-        WebDriverWait(driver, self.timeout).until(
+        WebDriverWait(self.selenium, self.timeout).until(
             lambda driver: "Số dư" in driver.page_source
         )
 
     def test_case_02(self):
-        driver = self.selenium
-
-        driver.get("http://localhost:8000/account/sign-out")
-        WebDriverWait(driver, self.timeout).until(
+        self.selenium.get("http://localhost:8000/account/sign-out")
+        WebDriverWait(self.selenium, self.timeout).until(
             lambda driver: "Đăng nhập" in driver.page_source
         )
 
-        driver.get("http://localhost:8000/account/sign-in")
+        self.selenium.get("http://localhost:8000/account/sign-in")
 
-        username_input = driver.find_element(By.NAME, "username")
-        password_input = driver.find_element(By.NAME, "password")
-        sign_in_btn = driver.find_element(By.ID, "btn-sign-in")
+        username_input = self.selenium.find_element(By.NAME, "username")
+        password_input = self.selenium.find_element(By.NAME, "password")
+        sign_in_btn = self.selenium.find_element(By.ID, "btn-sign-in")
 
         username_input.send_keys("admin")
         password_input.send_keys("kh@nh2001")
         sign_in_btn.click()
 
-        WebDriverWait(driver, self.timeout).until(
-            lambda driver: "thất bại" in driver.page_source
+        WebDriverWait(self.selenium, self.timeout).until(
+            lambda driver: "Vui lòng điền vào Tên đăng nhập và mật khẩu chính xác"
+            in driver.page_source
         )
+
+    def test_case_03(self):
+        self.selenium.get("http://localhost:8000/account/sign-out")
+        WebDriverWait(self.selenium, self.timeout).until(
+            lambda driver: "Đăng nhập" in driver.page_source
+        )
+
+        self.selenium.get("http://localhost:8000/account/sign-in")
+
+        sign_in_btn = self.selenium.find_element(By.ID, "btn-sign-in")
+        sign_in_btn.click()
+
+        is_disabled = sign_in_btn.get_attribute("disabled") == "true" or False
+        assert not is_disabled
