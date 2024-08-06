@@ -46,7 +46,7 @@
     {% include 'component/non-field-form-error.html' %}
 
     <div class="card-actions">
-      <label class="btn btn-primary w-full" hx-post="{% url 'htmx-sign-up' %}" hx-trigger="click" hx-target="#sign-up-block" hx-swap="outerHTML" hx-disabled-elt="this" hx-validate="true">Đăng ký</label>
+      <label id="btn-sign-up" class="btn btn-primary w-full" hx-post="{% url 'htmx-sign-up' %}" hx-trigger="click" hx-target="#sign-up-block" hx-swap="outerHTML" hx-disabled-elt="this" hx-validate="true">Đăng ký</label>
     </div>
   </form>
   {% comment %} <div class="divider">OR</div>

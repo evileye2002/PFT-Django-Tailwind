@@ -26,10 +26,10 @@ def add_category(request):
 
             form = None
             categories = Category.objects.filter(user=request.user)
-            message = {"type": "alert-success", "value": "Thêm Hạng mục thành công."}
+            message = {"type": "alert-success", "value": "Thêm hạng mục thành công."}
         else:
             categories = Category.objects.filter(user=request.user)
-            message = {"type": "alert-error", "value": "Thêm Hạng mục thất bại."}
+            message = {"type": "alert-error", "value": "Thêm hạng mục thất bại."}
 
     ctx = {
         "form": form,
@@ -167,11 +167,11 @@ def add_transaction(request):
                 ),
             )
 
-            message = {"type": "alert-success", "value": "Thêm Giao dịch thành công."}
+            message = {"type": "alert-success", "value": "Thêm giao dịch thành công."}
             transactions = Transaction.objects.filter(user=request.user)
         else:
             transactions = Transaction.objects.filter(user=request.user)
-            message = {"type": "alert-error", "value": "Thêm Giao dịch thất bại."}
+            message = {"type": "alert-error", "value": "Thêm giao dịch thất bại."}
 
     ctx = {
         "form": form,
