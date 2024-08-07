@@ -3,7 +3,7 @@
 
 {% block content %}
   <section class="bg-base-200">
-    <div class="flex flex-col items-center justify-center pb-5 mx-auto">
+    <div class="flex flex-col items-center justify-center pb-5 mx-5 md:mx-auto">
       <div class="card card-bordered shadow-xl w-full sm:max-w-md bg-base-100">
         {% if 'sign-in' in request.path %}
           {% include 'partial/account/sign-in-form.html' %}
