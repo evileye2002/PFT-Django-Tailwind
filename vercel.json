@@ -3,7 +3,7 @@
   "version": 2,
   "builds": [
     {
-      "src": "versel_deploymet/wsgi.py",
+      "src": "Personal_Finance_Tracker/wsgi.py",
       "use": "@vercel/python",
       "config": { "maxLambdaSize": "15mb", "runtime": "python3.9" }
     },
@@ -22,7 +22,7 @@
     },
     {
       "src": "/(.*)",
-      "dest": "versel_deploymet/wsgi.py"
+      "dest": "Personal_Finance_Tracker/wsgi.py"
     }
   ]
 }
