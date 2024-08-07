@@ -328,7 +328,10 @@ def filter_category(request):
     search_str = request.GET.get("s", "")
 
     if search_str:
-        categories = Category.objects.filter(name__icontains=search_str)
+        categories = Category.objects.filter(
+            user=request.user,
+            name__icontains=search_str,
+        )
 
     ctx = {
         "type": "search",

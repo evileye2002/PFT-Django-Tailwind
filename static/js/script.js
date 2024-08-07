@@ -175,6 +175,8 @@ function onDetailFormChanged($form, $saveBtn, initialData) {
   const currentMap = new Map(currentData.entries());
   const initialMap = new Map(initialData.entries());
 
+  // console.log(currentMap, initialMap);
+
   if (currentMap.size != initialMap.size) {
     $saveBtn.removeAttribute("disabled");
     return;
@@ -195,12 +197,11 @@ function onDetailFormChanged($form, $saveBtn, initialData) {
 
 function previewAvatar(e, imgID) {
   const file = e.target.files[0];
-  if (file) {
+  if (file && file.type.startsWith("image/")) {
     const reader = new FileReader();
     reader.onload = function (event) {
       const imgElement = document.getElementById(imgID);
       imgElement.src = event.target.result;
-      imgElement.style.display = "block";
     };
     reader.readAsDataURL(file);
   }
