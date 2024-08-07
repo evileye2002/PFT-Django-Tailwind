@@ -89,12 +89,12 @@ class BaseChart:
         return (None, None)
 
     def get_avg(self):
-        avg_income = self.income_filter.aggregate(avg_income=Avg("amount"))[
-            "avg_income"
-        ]
-        avg_expense = self.expense_filter.aggregate(avg_expense=Avg("amount"))[
-            "avg_expense"
-        ]
+        avg_income = (
+            self.income_filter.aggregate(avg_income=Avg("amount"))["avg_income"] or 0
+        )
+        avg_expense = (
+            self.expense_filter.aggregate(avg_expense=Avg("amount"))["avg_expense"] or 0
+        )
 
         return (avg_income, avg_expense)
 

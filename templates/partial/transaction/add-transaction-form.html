@@ -75,8 +75,8 @@
             <div class="flex gap-2 justify-end">
                 <label for="add-transaction-modal" class="btn btn-sm btn-outline">Huỷ bỏ</label>
                 <button id="reset-add-transaction-btn" type="reset" class="btn btn-sm btn-outline">Làm mới</button>
-                <label class="btn btn-sm btn-primary" hx-post="{% url "htmx-add-transaction" %}" hx-trigger="click"
-                    hx-disabled-elt="this" hx-validate="true" hx-swap='none'
+                <label id="add-transaction-btn" class="btn btn-sm btn-primary" hx-post="{% url "htmx-add-transaction" %}" hx-trigger="click"
+                    hx-disabled-elt="this" hx-validate="true" hx-swap="none"
                     hx-on="addTransactionSuccessfully: toggleModal('add-transaction-modal');">
                     Thêm
                 </label>

@@ -23,8 +23,8 @@ def home(request):
     except Exception as ex:
         cc_income = None
         cc_expense = None
-        avg_income = None
-        avg_expense = None
+        avg_income = 0
+        avg_expense = 0
 
     dn_colors = []
     dn_income, dn_expense = DonutChart(

@@ -10,8 +10,8 @@ User = get_user_model()
 
 
 class SignUpForm(UserCreationForm):
-    first_name = forms.CharField(min_length=3, max_length=150, required=True)
-    last_name = forms.CharField(min_length=3, max_length=150, required=True)
+    first_name = forms.CharField(min_length=2, max_length=150, required=True)
+    last_name = forms.CharField(min_length=2, max_length=150, required=True)
     username = forms.CharField(min_length=6, max_length=150, required=True)
     email = forms.EmailField(
         max_length=150,

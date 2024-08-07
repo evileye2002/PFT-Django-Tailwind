@@ -1,11 +1,11 @@
 <div id="change-info-block" class="col-span-4 row-span-2 flex shadow-md dark:shadow-neutral dark:bg-base-200 p-5 rounded-lg" hx-swap-oob="true">
-  <form id="change-info-form" class="space-y-4 w-full p-3" action="#">
+  <form id="change-info-form" class="space-y-2 w-full p-3" action="#">
     {% csrf_token %}
 
     <div class="flex flex-col justify-center items-center !mt-0">
       <div class="avatar relative group">
         <div class="rounded-full w-32 absolute">
-          <label for="avatar-change" class="size-32 hidden group-hover:flex justify-center items-center bg-black bg-opacity-40 cursor-pointer"><i class="fa-solid fa-camera !text-white"></i></label>
+          <label for="avatar-change" class="size-32 hidden group-hover:flex justify-center items-center bg-black bg-opacity-40 cursor-pointer"><i class="fa-solid fa-camera fa-xl !text-white"></i></label>
         </div>
         <div class="rounded-full w-32">
           <img id="avatar-img" src="{{ user.avatar.url }}" />
@@ -13,36 +13,40 @@
       </div>
 
       <div class="mt-2">Avatar</div>
-      <input id="avatar-change" name="avatar" type="file" accept="image/*" class="hidden" onchange="previewAvatar(event,'avatar-img')" />
+      <input id="avatar-change" name="avatar" type="file" accept="image/*" class="hidden" onchange="previewAvatar(event, 'avatar-img')" />
     </div>
 
-    <div class="">
-      <label class="input input-bordered input-sm py-5 flex items-center gap-2"><input type="text" name="last_name" class="grow" placeholder="Họ" value="{{ form.last_name.value }}" required minlength="3" maxlength="150" hx-on:htmx:validation:validate="htmx.find('#change-info-form').reportValidity();" /></label>
+    <label class="form-control w-full !mt-0">
+      <div class="label pt-0">
+        <span class="label-text">Họ</span>
+      </div>
+      <input type="text" name="last_name" class="input input-bordered input-sm py-5 w-full" placeholder="Họ" value="{{ form.last_name.value }}" required minlength="2" maxlength="150" hx-on:htmx:validation:validate="htmx.find('#change-info-form').reportValidity();" />
       {% include 'component/form-field-error.html' with field_errors=form.last_name.errors %}
-    </div>
+    </label>
 
-    <div class="">
-      <label class="input input-bordered input-sm py-5 flex items-center gap-2"><input type="text" name="first_name" class="grow" placeholder="Tên" value="{{ form.first_name.value }}" required minlength="3" maxlength="150" /></label>
+    <label class="form-control w-full">
+      <div class="label pt-0">
+        <span class="label-text">Tên</span>
+      </div>
+      <input type="text" name="first_name" class="input input-bordered input-sm py-5 w-full" placeholder="Tên" value="{{ form.first_name.value }}" required minlength="2" maxlength="150" />
       {% include 'component/form-field-error.html' with field_errors=form.first_name.errors %}
-    </div>
+    </label>
 
-    <div class="">
-      <label class="input input-bordered input-sm py-5 flex items-center gap-2">
-        <span class="fill-current h-4 w-4 flex items-center justify-center"><i class="fa-solid fa-envelope"></i></span>
-        <input type="email" name="email" class="grow" placeholder="Email" value="{{ form.email.value }}" required maxlength="150" />
-      </label>
+    <label class="form-control w-full">
+      <div class="label pt-0">
+        <span class="label-text">Email</span>
+      </div>
+      <input type="email" name="email" class="input input-bordered input-sm py-5 w-full" placeholder="Email" value="{{ form.email.value }}" required maxlength="150" />
       {% include 'component/form-field-error.html' with field_errors=form.email.errors %}
-    </div>
+    </label>
 
     {% include 'component/non-field-form-error.html' %}
 
-    <div class="flex items-center justify-between">
-      <div class="col-span-4">
-        <label for="change-password-modal" class="link link-secondary link-hover text-sm font-medium">
-          <i class="fa-solid fa-lock me-1"></i>
-          Đổi mật khẩu
-        </label>
-      </div>
+    <div class="flex items-center justify-between !mt-4">
+      <label for="change-password-modal" class="link link-secondary link-hover text-sm font-medium">
+        <i class="fa-solid fa-lock me-1"></i>
+        Đổi mật khẩu
+      </label>
       <label id="btn-save-user-info" class="btn btn-primary btn-sm" disabled hx-post="{% url 'htmx-update-user-info' %}" hx-trigger="click" hx-disabled-elt="this" hx-validate="true" hx-swap="none" hx-encoding="multipart/form-data">Lưu thay đổi</label>
     </div>
   </form>

@@ -39,8 +39,8 @@
                 <div class="label pt-0">
                     <span class="label-text">Mô tả</span>
                 </div>
-                <textarea name="description" class="textarea textarea-bordered h-52"
-                    maxlength='500'>{{ form.description.value }}</textarea>
+                <textarea name="description" class="textarea textarea-bordered"
+                    maxlength="500">{{ form.description.value }}</textarea>
                 {% include "component/form-field-error.html" with field_errors=form.description.errors %}
             </label>
 
