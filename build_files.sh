@@ -2,6 +2,9 @@
 echo "Building project packages..."
 python3 -m pip install -r requirements.txt
 
+echo "Installing tailwindcss..."
+python3 manage.py tailwind install
+
 echo "Building tailwindcss..."
 python3 manage.py tailwind build
 
