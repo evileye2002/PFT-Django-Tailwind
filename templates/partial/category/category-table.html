@@ -1,42 +1,37 @@
 <div id="category-table-block" hx-swap-oob="true">
-    <table id="category-table" class="table">
-        <!-- head -->
-        <thead>
-            <tr>
-                <th>
-                    {% if categories.count > 1 %}
-                    <label class="flex items-center justify-center">
-                        <input all-row-selection type="checkbox" class="checkbox checkbox-sm"
-                            onchange="selectAllRow(event)" />
-                    </label>
-                    {% endif %}
-                </th>
-                <th>Tên hạng mục</th>
-                <th>Loại hạng mục</th>
-                <th>Mô tả</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody id="category-table-tbody">
-            {% for category in categories %}
-            {% include 'component/category/category-row.html' with category=category %}
-            {% endfor %}
-        </tbody>
-        <!-- foot -->
-        {% if categories.count > 10 %}
-        <tfoot>
-            <tr>
-                <th></th>
-                <th>Tên hạng mục</th>
-                <th>Loại hạng mục</th>
-                <th>Mô tả</th>
-                <th></th>
-            </tr>
-        </tfoot>
-        {% endif %}
-    </table>
+  <table id="category-table" class="table table-sm md:table-md">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th class="hidden md:block">
+          {% if categories.count > 1 %}
+            <label class="flex items-center justify-center"><input all-row-selection type="checkbox" class="checkbox checkbox-sm" onchange="selectAllRow(event)" /></label>
+          {% endif %}
+        </th>
+        <th>Tên hạng mục</th>
+        <th>Loại hạng mục</th>
+        <th>Mô tả</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="category-table-tbody">
+      {% for category in categories %}
+        {% include 'component/category/category-row.html' with category=category %}
+      {% endfor %}
+    </tbody>
+    <!-- foot -->
+    {% if categories.count > 10 %}
+      <tfoot>
+        <tr>
+          <th class="hidden md:block"></th>
+          <th>Tên hạng mục</th>
+          <th>Loại hạng mục</th>
+          <th>Mô tả</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    {% endif %}
+  </table>
 
-    <div class="text-center font-bold p-10 table {% if categories %}hidden{% endif %}">
-        Bạn chưa có Hạng mục nào.
-    </div>
+  <div class="text-center font-bold p-10 table {% if categories %}hidden{% endif %}">Bạn chưa có Hạng mục nào.</div>
 </div>

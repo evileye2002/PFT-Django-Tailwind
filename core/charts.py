@@ -181,8 +181,8 @@ class ColumnChart(BaseChart):
             for i in range(start, end + 1):
                 y_income = self.income_dict.get(i, 0)
                 y_expense = self.expense_dict.get(i, 0)
-                income_data_str.append({"x": f"Th{i:02d}", "y": y_income})
-                expense_data_str.append({"x": f"Th{i:02d}", "y": y_expense})
+                income_data_str.append({"x": f"{i:02d}", "y": y_income})
+                expense_data_str.append({"x": f"{i:02d}", "y": y_expense})
 
             return (income_data_str, expense_data_str)
 

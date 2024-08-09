@@ -9,12 +9,12 @@
         </div>
 
         <!-- Category Actions -->
-        <div class="flex items-center gap-x-3">
+        <div class="flex items-center gap-x-3 justify-between md:justify-normal">
           <div bulk-delete-btn class="btn btn-sm btn-error scale-up-center hidden">
             <span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></span>
             Bulk Delete
           </div>
-          <label class="input input-bordered input-sm flex items-center gap-2">
+          <label class="input input-bordered input-sm flex items-center gap-2 w-full md:w-fit">
             <span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="text" name="s" class="grow" placeholder="Tìm kiếm" hx-get="{% url 'htmx-filter-category' %}" hx-trigger="keyup[keyCode==13], search, keyup changed delay:2s" hx-on:keyup="if (this.value == '') htmx.trigger(this,'search')" hx-swap="none" />
             <kbd class="kbd kbd-sm">Ctrl</kbd>
