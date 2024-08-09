@@ -10,6 +10,12 @@ class TransactionType(models.IntegerChoices):
     EXPENSE = 2, "Chi tiêu"
 
 
+class GoalPriority(models.IntegerChoices):
+    HIGH = 1, "Cao nhất"  # will warning
+    MEDIUM = 2, "Trung bình"
+    LOW = 3, "Thấp nhất"
+
+
 class Category(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     type = models.IntegerField(choices=TransactionType.choices)
@@ -41,6 +47,27 @@ class Transaction(models.Model):
 
     class Meta:
         ordering = ["-created_at"]
+
+    def __str__(self):
+        return self.name
+
+
+class Goal(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=150)
+    current_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
+    target_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    target_date = models.DateField()
+    is_use_balance = models.BooleanField(default=True)
+    priority = models.IntegerField(
+        choices=GoalPriority.choices,
+        default=GoalPriority.MEDIUM,
+    )
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-created_at", "priority"]
 
     def __str__(self):
         return self.name

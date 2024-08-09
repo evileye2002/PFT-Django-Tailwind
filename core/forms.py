@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
-from .models import Transaction, TransactionType, Category
+from .models import Transaction, TransactionType, Category, GoalPriority, Goal
 
 User = get_user_model()
 
@@ -21,3 +21,12 @@ class CategoryForm(forms.ModelForm):
     class Meta:
         model = Category
         fields = ["name", "type", "description"]
+
+
+class GoalForm(forms.ModelForm):
+    priority = forms.ChoiceField(required=False, choices=GoalPriority.choices)
+    is_use_balance = forms.CheckboxInput()
+
+    class Meta:
+        model = Goal
+        fields = ["name", "target_amount", "target_date", "priority", "is_use_balance"]

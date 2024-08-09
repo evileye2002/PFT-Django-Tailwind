@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     "theme",
     "django_browser_reload",
     "django_filters",
+    "widget_tweaks",
 ]
 
 MIDDLEWARE = [
@@ -124,7 +125,10 @@ USE_TZ = False
 
 STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "staticfiles"
-STATICFILES_DIRS = [BASE_DIR / "static"]
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "components"),
+]
 
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
@@ -133,14 +137,6 @@ MEDIA_ROOT = BASE_DIR / "media"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
-
-# Other
-# CRISPY_ALLOWED_TEMPLATE_PACKS = "daisyui"
-# CRISPY_TEMPLATE_PACK = "daisyui"
-
-# COMPRESS_ROOT = BASE_DIR / "static"
-# COMPRESS_ENABLED = True
-# STATICFILES_FINDERS = ("compressor.finders.CompressorFinder",)
 
 AUTH_USER_MODEL = "account.UserCustom"
 
