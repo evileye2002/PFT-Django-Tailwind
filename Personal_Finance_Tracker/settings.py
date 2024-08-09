@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import dj_database_url
 import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -26,7 +27,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = [os.environ.get("ALLOWED_HOSTS")]
+ALLOWED_HOSTS = ["127.0.0.1", "localhost", ".vercel.app", ".now.sh"]
 
 
 # Application definition
@@ -43,8 +44,9 @@ INSTALLED_APPS = [
     "htmx_render",
     "tailwind",
     "theme",
-    # "django_browser_reload",
     "django_filters",
+    "cloudinary_storage",
+    "cloudinary",
 ]
 
 MIDDLEWARE = [
@@ -55,7 +57,6 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware",
 ]
 
 ROOT_URLCONF = "Personal_Finance_Tracker.urls"
@@ -89,6 +90,8 @@ DATABASES = {
     }
 }
 
+db_url = os.environ.get("DATABASE_URL")
+DATABASES["default"] = dj_database_url.parse(db_url)
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -127,26 +130,30 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
 
 MEDIA_URL = "media/"
-MEDIA_ROOT = BASE_DIR / "media"
+STORAGES = {
+    "default": {"BACKEND": "cloudinary_storage.storage.MediaCloudinaryStorage"},
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-# Other
-# CRISPY_ALLOWED_TEMPLATE_PACKS = "daisyui"
-# CRISPY_TEMPLATE_PACK = "daisyui"
-
-# COMPRESS_ROOT = BASE_DIR / "static"
-# COMPRESS_ENABLED = True
-# STATICFILES_FINDERS = ("compressor.finders.CompressorFinder",)
-
 AUTH_USER_MODEL = "account.UserCustom"
 
 # Django-Tailwind
 TAILWIND_APP_NAME = "theme"
-# NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
-# INTERNAL_IPS = [
-#     "127.0.0.1",
-# ]
+# NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"  # for DEV
+
+# Django-Cloudinary-Storage
+CLOUDINARY_CLOUD_NAME = os.environ.get("CLOUDINARY_CLOUD_NAME")
+CLOUDINARY_API_KEY = os.environ.get("CLOUDINARY_API_KEY")
+CLOUDINARY_API_SECRET = os.environ.get("CLOUDINARY_API_SECRET")
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": CLOUDINARY_CLOUD_NAME,
+    "API_KEY": CLOUDINARY_API_KEY,
+    "API_SECRET": CLOUDINARY_API_SECRET,
+}
