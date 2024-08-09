@@ -39,11 +39,11 @@
 }
 
 .datepicker-footer > .datepicker-controls {
-  @apply flex space-x-2 rtl:space-x-reverse mt-2;
+  @apply flex mt-2 space-x-2 rtl:space-x-reverse;
 }
 
 .datepicker-picker {
-  @apply inline-block rounded-lg bg-white dark:bg-gray-700 shadow-lg p-4;
+  @apply inline-block p-4 bg-white rounded-lg shadow-lg dark:bg-gray-700;
 }
 
 .prev-btn {
@@ -51,7 +51,7 @@
 }
 
 .prev-btn > svg {
-  @apply w-4 h-4 rtl:rotate-180 text-gray-800 dark:text-white;
+  @apply w-4 h-4 text-gray-800 rtl:rotate-180 dark:text-white;
 }
 
 .next-btn {
@@ -59,7 +59,7 @@
 }
 
 .next-btn > svg {
-  @apply w-4 h-4 rtl:rotate-180 text-gray-800 dark:text-white;
+  @apply w-4 h-4 text-gray-800 rtl:rotate-180 dark:text-white;
 }
 
 .view-switch {
@@ -67,11 +67,11 @@
 }
 
 .today-btn {
-  @apply btn btn-sm btn-primary w-1/2;
+  @apply w-1/2 btn btn-sm btn-primary;
 }
 
 .clear-btn {
-  @apply btn btn-sm btn-outline w-1/2;
+  @apply w-1/2 btn btn-sm btn-outline;
 }
 
 .days-of-week {
@@ -79,17 +79,17 @@
 }
 
 .days-of-week > span {
-  @apply text-center h-6 leading-6 text-sm font-medium text-gray-500 dark:text-gray-400;
+  @apply h-6 text-sm font-medium leading-6 text-center text-gray-500 dark:text-gray-400;
 }
 
 .days > .datepicker-grid {
-  @apply w-64 grid grid-cols-7;
+  @apply grid w-64 grid-cols-7;
 }
 
 .datepicker-view.months,
 .datepicker-view.years,
 .datepicker-view.decades {
-  @apply w-64 grid grid-cols-4;
+  @apply grid w-64 grid-cols-4;
 }
 
 .datepicker-cell.month,
@@ -99,7 +99,7 @@
 }
 
 .datepicker-cell.day {
-  @apply hover:bg-gray-100 dark:hover:bg-gray-600 block flex-1 leading-9 border-0 cursor-pointer text-center text-gray-900 dark:text-white font-semibold text-sm;
+  @apply flex-1 block text-sm font-semibold leading-9 text-center text-gray-900 border-0 cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-white;
 }
 
 .datepicker-cell.day.selected {

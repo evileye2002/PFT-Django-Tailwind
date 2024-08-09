@@ -5,8 +5,8 @@ from django.contrib.auth.forms import PasswordChangeForm
 
 from account.forms import SignInForm, SignUpForm, UpdateUserInfoForm
 from account.models import UpdateBalanceOperationType
-from core.forms import TransactionForm, CategoryForm
-from core.models import Transaction, TransactionType, Category
+from core.forms import TransactionForm, CategoryForm, GoalForm
+from core.models import Transaction, TransactionType, Category, Goal, GoalPriority
 from core.filter import TransactionFilter
 
 
@@ -134,6 +134,50 @@ def category_option(request):
 
     ctx = {"categories": categories}
     return render(request, "component/transaction/category-select-options.html", ctx)
+
+
+def add_goal(request):
+    form = None
+    goals = None
+    message = None
+
+    if request.method == "POST":
+        post_data = request.POST.copy()
+        post_data["target_amount"] = post_data.get("target_amount", "").replace(",", "")
+        is_use_balance = post_data.get("is_use_balance", "off") == "on"
+
+        if is_use_balance:
+            post_data["current_amount"] = request.user.balance
+        else:
+            post_data["current_amount"] = 0
+
+        form = GoalForm(post_data)
+
+        if form.is_valid():
+            new_goal = form.save(commit=False)
+            new_goal.user = request.user
+            new_goal.save()
+
+            form = None
+            goals = Goal.objects.filter(user=request.user)
+            message = {"type": "alert-success", "value": "Thêm mục tiêu thành công."}
+        else:
+            goals = Goal.objects.filter(user=request.user)
+            message = {"type": "alert-error", "value": "Thêm mục tiêu thất bại."}
+
+    ctx = {
+        "form": form,
+        "goals": goals,
+        "message": message,
+        "type": "add",
+        "is_use_balance": is_use_balance,
+    }
+
+    response = render(request, "component/goal/page-layout.html", ctx)
+    if "success" in message["type"]:
+        response["HX-TRIGGER"] = "addGoalSuccessfully"
+
+    return response
 
 
 def add_transaction(request):

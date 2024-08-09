@@ -3,20 +3,18 @@
     <!-- head -->
     <thead>
       <tr>
-        <th>
-          {% if goals.count > 1 %}
-            <label class="flex items-center justify-center">
-              <!-- Select All -->
-              <input all-row-selection type="checkbox" class="checkbox checkbox-sm" onchange="selectAllRow(event)" />
-            </label>
-          {% endif %}
+        <th class="hidden md:table-cell">
+          <label class="flex items-center justify-center">
+            <!-- Select All -->
+            <input all-row-selection type="checkbox" class="checkbox checkbox-sm" onchange="selectAllRow(event)" />
+          </label>
         </th>
         <th>Tên mục tiêu</th>
-        <th class="hidden md:block">Số tiền hiện tại</th>
-        <th class="hidden md:block">Số tiền mục tiêu</th>
-        <th class="hidden md:block">Thời hạn hoàn thành</th>
+        <th class="hidden md:table-cell">Số tiền hiện tại</th>
+        <th class="hidden md:table-cell">Số tiền mục tiêu</th>
+        <th class="hidden md:table-cell">Mức độ ưu tiên</th>
+        <th class="hidden md:table-cell">Thời hạn hoàn thành</th>
         <th>Tiến độ hoàn thành</th>
-        <th class="hidden md:block">Mức độ ưu tiên</th>
         <th></th>
       </tr>
     </thead>

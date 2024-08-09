@@ -55,8 +55,8 @@ class Transaction(models.Model):
 class Goal(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=150)
-    current_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
-    target_amount = models.DecimalField(max_digits=10, decimal_places=2)
+    current_amount = models.FloatField(default=0)
+    target_amount = models.FloatField()
     target_date = models.DateField()
     priority = models.IntegerField(
         choices=GoalPriority.choices,
@@ -72,4 +72,4 @@ class Goal(models.Model):
         return self.name
 
     def get_complete_percent(self):
-        return round(self.current_amount / self.target_amount * 100, 0)
+        return format(int((self.current_amount / self.target_amount * 100)))

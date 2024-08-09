@@ -25,11 +25,13 @@ class CategoryForm(forms.ModelForm):
 
 class GoalForm(forms.ModelForm):
     priority = forms.ChoiceField(required=False, choices=GoalPriority.choices)
+    target_date = forms.DateField(input_formats=["%d-%m-%Y"])
 
     class Meta:
         model = Goal
         fields = [
             "name",
+            "current_amount",
             "target_amount",
             "target_date",
             "priority",

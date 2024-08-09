@@ -1,22 +1,24 @@
 {% load util_filters %}
 
 <tr>
-  <th>
+  <th class="hidden md:block">
     <label class="flex items-center justify-center">
       <!-- Row Selection -->
       <input row-selection data-transaction-id="{{ goal.id }}" type="checkbox" class="checkbox checkbox-sm row-checkbox" onchange="onRowSelected(event)" />
     </label>
   </th>
   <td class="font-bold">{{ goal.name|title }}</td>
-  <td class="hidden md:block">{{ goal.current_amount|int_comma }} đ</td>
-  <td class="hidden md:block">{{ goal.target_amount|int_comma }} đ</td>
-  <td class="hidden md:block">{{ goal.target_date|date:'d-m-Y' }}</td>
-  <td class="items-center md:flex text-nowrap">
-    <!--  -->
-    <progress class="w-full md:h-3 progress progress-primary" value="{{ goal.get_complete_percent }}" max="100"></progress>
-    <span class="hidden ms-1 md:block">{{ goal.get_complete_percent }} %</span>
+  <td class="hidden md:table-cell text-nowrap">{{ goal.current_amount|int_comma }} đ</td>
+  <td class="hidden md:table-cell text-nowrap">{{ goal.target_amount|int_comma }} đ</td>
+  <td class="hidden md:table-cell text-nowrap">
+    <div class="badge badge-primary">{{ goal.get_priority_display }}</div>
   </td>
-  <td class="hidden md:block">{{ goal.get_priority_display }}</td>
+  <td class="hidden md:table-cell text-nowrap">{{ goal.target_date|date:'d-m-Y' }}</td>
+  <td class="items-center md:flex text-nowrap">
+    <!-- complete progress -->
+    <progress class="w-full md:w-56 md:h-3 progress progress-primary" value="{{ goal.get_complete_percent }}" max="100"></progress>
+    <span class="hidden ms-2 md:block">{{ goal.get_complete_percent }} %</span>
+  </td>
   <th class="text-center">
     <label for="detail-goal-modal" class="btn btn-primary btn-outline btn-xs" hx-get="" hx-trigger="click" hx-target="#detail-category-modal-box" hx-swap="outerHTML"><i class="fa-solid fa-pen-to-square"></i></label>
   </th>

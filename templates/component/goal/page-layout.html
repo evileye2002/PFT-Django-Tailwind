@@ -1,0 +1,15 @@
+{% include 'partial/goal/table.html' %}
+
+{% if type == 'add' %}
+  {% include 'partial/goal/add-form.html' %}
+{% elif type == 'edit' %}
+  {% include 'partial/goal/detail-form.html' %}
+{% endif %}
+
+{{ form }}
+
+{% if message %}
+  <div id="toast" class="toast" hx-swap-oob="beforeend">
+    {% include 'component/alert.html' with alert_type=message.type alert_msg=message.value %}
+  </div>
+{% endif %}

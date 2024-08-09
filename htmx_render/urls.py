@@ -69,5 +69,14 @@ category_url_patterns = [
     ),
 ]
 
+goal_url_patterns = [
+    path(
+        "add-goal",
+        views.add_goal,
+        name="htmx-add-goal",
+    ),
+]
+
 urlpatterns += category_url_patterns
 urlpatterns += transaction_url_patterns
+urlpatterns += goal_url_patterns
