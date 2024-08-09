@@ -1,31 +1,31 @@
 {% extends 'base/base.html' %}
 
 {% block content %}
-  <section name="category" id="category" class="flex justify-center">
+  <section name="category" id="category" class="flex justify-center h-screen">
     <div class="p-3 w-full md:w-[92%]">
-      <div class="flex sm:items-center gap-y-3 flex-col sm:flex-row shadow-md dark:shadow-neutral dark:bg-base-200 p-3 rounded-lg">
+      <div class="flex flex-col p-3 rounded-lg shadow-md sm:items-center gap-y-3 sm:flex-row dark:shadow-neutral dark:bg-base-200">
         <div class="font-bold sm:me-auto">
           <i class="fa-solid fa-layer-group me-2"></i>Hạng mục cá nhân
         </div>
 
         <!-- Category Actions -->
         <div class="flex items-center gap-x-3">
-          <div bulk-delete-btn class="btn btn-sm btn-error scale-up-center hidden">
-            <span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-xmark"></i></span>
+          <div bulk-delete-btn class="hidden btn btn-sm btn-error scale-up-center">
+            <span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-xmark"></i></span>
             Bulk Delete
           </div>
-          <label class="input input-bordered input-sm flex items-center gap-2">
-            <span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-magnifying-glass"></i></span>
+          <label class="flex items-center gap-2 input input-bordered input-sm">
+            <span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="text" name="s" class="grow" placeholder="Tìm kiếm" hx-get="{% url 'htmx-filter-category' %}" hx-trigger="keyup[keyCode==13], search, keyup changed delay:2s" hx-on:keyup="if (this.value == '') htmx.trigger(this,'search')" hx-swap="none" />
             <kbd class="kbd kbd-sm">Ctrl</kbd>
             <kbd class="kbd kbd-sm">K</kbd>
           </label>
-          {% comment %} <label for="filter-category-drawer" class="drawer-button btn btn-sm"><span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-filter"></i></span></label> {% endcomment %}
-          <label id="open-add-category-modal-btn" for="add-category-modal" class="btn btn-sm btn-secondary"><span class="fill-current h-3 w-3 flex items-center justify-center"><i class="fa-solid fa-plus fa-lg"></i></span></label>
+          {% comment %} <label for="filter-category-drawer" class="drawer-button btn btn-sm"><span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-filter"></i></span></label> {% endcomment %}
+          <label id="open-add-category-modal-btn" for="add-category-modal" class="btn btn-sm btn-secondary"><span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-plus fa-lg"></i></span></label>
         </div>
       </div>
 
-      <div class="overflow-x-auto mt-3">
+      <div class="mt-3 overflow-x-auto">
         {% include 'partial/category/category-table.html' %}
       </div>
     </div>
@@ -33,7 +33,7 @@
 
   <!-- Add Category Modal -->
   <input type="checkbox" id="add-category-modal" class="modal-toggle" />
-  <div class="modal z-40" role="dialog">
+  <div class="z-40 modal" role="dialog">
     {% include 'partial/category/add-category-form.html' %}
 
     <label class="modal-backdrop" for="add-category-modal">Close</label>
@@ -41,9 +41,9 @@
 
   <!-- Detail Category Modal -->
   <input type="checkbox" id="detail-category-modal" class="modal-toggle" onchange="onDetailModalClose(event,'detail-category-modal-box')" />
-  <div class="modal z-40" role="dialog">
+  <div class="z-40 modal" role="dialog">
     <div id="detail-category-modal-box" class="modal-box h-80">
-      <div class="flex justify-center items-center h-full">
+      <div class="flex items-center justify-center h-full">
         <span class="loading loading-spinner loading-lg"></span>
       </div>
     </div>

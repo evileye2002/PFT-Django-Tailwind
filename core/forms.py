@@ -25,8 +25,12 @@ class CategoryForm(forms.ModelForm):
 
 class GoalForm(forms.ModelForm):
     priority = forms.ChoiceField(required=False, choices=GoalPriority.choices)
-    is_use_balance = forms.CheckboxInput()
 
     class Meta:
         model = Goal
-        fields = ["name", "target_amount", "target_date", "priority", "is_use_balance"]
+        fields = [
+            "name",
+            "target_amount",
+            "target_date",
+            "priority",
+        ]

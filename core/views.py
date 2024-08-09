@@ -1,8 +1,7 @@
 from django.shortcuts import render, resolve_url
 from django.contrib.auth.decorators import login_required
-from .models import Transaction, Category, TransactionType
+from .models import Transaction, Category, TransactionType, Goal
 from .charts import ColumnChart, ChartType, DonutChart
-from .forms import GoalForm
 
 
 # Create your views here.
@@ -74,10 +73,6 @@ def category(request):
 
 @login_required(login_url="sign-in")
 def goal(request):
-    form = GoalForm()
-    goals = Category.objects.filter(user=request.user)
-    ctx = {
-        "form": form,
-        "goals": goals,
-    }
+    goals = Goal.objects.filter(user=request.user)
+    ctx = {"goals": goals}
     return render(request, "core/goal.html", ctx)

@@ -1,0 +1,46 @@
+<div id="goal-table-block" hx-swap-oob="true">
+  <table id="goal-table" class="table">
+    <!-- head -->
+    <thead>
+      <tr>
+        <th>
+          {% if goals.count > 1 %}
+            <label class="flex items-center justify-center">
+              <!-- Select All -->
+              <input all-row-selection type="checkbox" class="checkbox checkbox-sm" onchange="selectAllRow(event)" />
+            </label>
+          {% endif %}
+        </th>
+        <th>Tên mục tiêu</th>
+        <th class="hidden md:block">Số tiền hiện tại</th>
+        <th class="hidden md:block">Số tiền mục tiêu</th>
+        <th class="hidden md:block">Thời hạn hoàn thành</th>
+        <th>Tiến độ hoàn thành</th>
+        <th class="hidden md:block">Mức độ ưu tiên</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody id="goal-table-tbody">
+      {% for goal in goals %}
+        {% include 'component/goal/table-row.html' with goal=goal %}
+      {% endfor %}
+    </tbody>
+    <!-- foot -->
+    {% if goals.count > 10 %}
+      <tfoot>
+        <tr>
+          <th></th>
+          <th>Tên hạng mục</th>
+          <th>Loại hạng mục</th>
+          <th>Mô tả</th>
+          <th></th>
+        </tr>
+      </tfoot>
+    {% endif %}
+  </table>
+
+  <div class="text-center font-bold p-10 table {% if goals %}hidden{% endif %}">
+    <!-- Empty -->
+    Bạn chưa có Hạng mục nào.
+  </div>
+</div>

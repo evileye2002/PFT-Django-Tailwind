@@ -26,7 +26,7 @@ class Category(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["-created_at"]
+        ordering = ["-created_at", "type"]
 
     def __str__(self):
         return self.name
@@ -58,7 +58,6 @@ class Goal(models.Model):
     current_amount = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     target_amount = models.DecimalField(max_digits=10, decimal_places=2)
     target_date = models.DateField()
-    is_use_balance = models.BooleanField(default=True)
     priority = models.IntegerField(
         choices=GoalPriority.choices,
         default=GoalPriority.MEDIUM,
@@ -71,3 +70,6 @@ class Goal(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_complete_percent(self):
+        return round(self.current_amount / self.target_amount * 100, 0)
