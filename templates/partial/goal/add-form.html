@@ -1,0 +1,68 @@
+{% load widget_tweaks %}
+<div id="add-goal-form-block" class="modal-box" hx-swap-oob="true">
+  <h3 class="mb-3 text-lg font-bold">Thêm Hạng Mục</h3>
+  <div class="">
+    <form id="add-goal-form" action="#" class="space-y-3">
+      {% csrf_token %}
+
+      <label class="w-full form-control">
+        <div class="pt-0 label">
+          <span class="label-text">Tên hạng mục<span class="text-error">*</span></span>
+        </div>
+        {% render_field form.name|attr:'type=text'|attr:'minlength=3'|attr:'maxlength=150'|attr:'required' class='input input-bordered' %}
+        {% include 'component/form-field-error.html' with field_errors=form.name.errors %}
+      </label>
+
+      <label class="w-full form-control">
+        <div class="pt-0 label">
+          <span class="label-text">Số tiền đích<span class="text-error">*</span></span>
+        </div>
+        <input type="text" name="target_amount" class="input input-bordered" onchange="amountValueChange(event)" required autocomplete="off" onkeyup="this.setCustomValidity('')" hx-on:htmx:validation:validate="isNumber(this); htmx.find('#add-goal-form').reportValidity();" />
+        {% include 'component/form-field-error.html' with field_errors=form.target_amount.errors %}
+      </label>
+
+      <label class="w-full form-control">
+        <div class="pt-0 label">
+          <span class="label-text">Ngày đích<span class="text-error">*</span></span>
+        </div>
+        <label class="flex items-center gap-2 input input-bordered">
+          <input id="add-transaction-date" name="target_date" type="text" class="grow" placeholder="dd-mm-yyyy" required autocomplete="off" />
+          <span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-regular fa-calendar-days fa-lg"></i></span>
+        </label>
+        <script>
+          initDatepicker('add-transaction-date')
+        </script>
+        {% include 'component/form-field-error.html' with field_errors=form.target_date.errors %}
+      </label>
+
+      <label class="w-full form-control">
+        <div class="pt-0 label">
+          <span class="label-text">Loại hạng mục<span class="text-error">*</span></span>
+        </div>
+        <select class="select select-bordered" name="priority" required>
+          <option value="">Chọn mức độ ưu tiên</option>
+          <option value="1">Cao nhất</option>
+          <option value="2" selected>Trung bình</option>
+          <option value="3">Thấp nhất</option>
+        </select>
+        {% include 'component/form-field-error.html' with field_errors=form.priority.errors %}
+      </label>
+
+      <div class="form-control">
+        <label class="gap-3 cursor-pointer label justify-normal">
+          <input name="is_use_balance" type="checkbox" checked="checked" class="checkbox checkbox-primary" />
+          <span class="label-text">Sử dụng số dư hiện tại</span>
+          <div class="tooltip" data-tip="Mặc định sử dụng số dư hiện tại để tính toán tiến độ hoàn thành của mục tiêu. Nếu không, mục tiêu sẽ bắt đầu tính toán từ 0 đ">
+            <i class="fa-regular fa-circle-question fa-sm"></i>
+          </div>
+        </label>
+      </div>
+
+      <div class="flex justify-end gap-2">
+        <label for="add-goal-modal" class="btn btn-sm btn-outline">Huỷ bỏ</label>
+        <button type="reset" class="btn btn-sm btn-outline">Làm mới</button>
+        <label id="add-goal-btn" class="btn btn-sm btn-primary" hx-post="" hx-trigger="click" hx-disabled-elt="this" hx-validate="true" hx-swap="none" hx-on="addCategorySuccessfully: toggleModal('add-category-modal'); resetForm('add-category-form')">Thêm</label>
+      </div>
+    </form>
+  </div>
+</div>

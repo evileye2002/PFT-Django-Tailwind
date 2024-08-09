@@ -45,8 +45,10 @@ INSTALLED_APPS = [
     "tailwind",
     "theme",
     "django_filters",
+    "widget_tweaks",
     "cloudinary_storage",
     "cloudinary",
+
 ]
 
 MIDDLEWARE = [
@@ -126,7 +128,10 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = "static/"
-STATICFILES_DIRS = (os.path.join(BASE_DIR, "static"),)
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, "static"),
+    os.path.join(BASE_DIR, "components"),
+]
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles_build", "static")
 
 MEDIA_URL = "media/"

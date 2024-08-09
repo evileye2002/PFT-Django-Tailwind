@@ -7,6 +7,7 @@ NAVBAR_LINKS = [
     {"href": resolve_url("home"), "title": "Trang chủ"},
     {"href": resolve_url("transaction"), "title": "Giao dịch"},
     {"href": resolve_url("category"), "title": "Hạng mục"},
+    {"href": resolve_url("goal"), "title": "Mục tiêu"},
 ]
 
 METADATA = {
