@@ -10,13 +10,13 @@
   <td class="font-bold">{{ goal.name|title }}</td>
   <td class="hidden md:table-cell text-nowrap">{{ goal.current_amount|int_comma }} đ</td>
   <td class="hidden md:table-cell text-nowrap">{{ goal.target_amount|int_comma }} đ</td>
-  <td class="hidden md:table-cell text-nowrap">
-    <div class="badge badge-primary">{{ goal.get_priority_display }}</div>
+  <td class="hidden text-center md:table-cell text-nowrap">
+    {% include 'component/goal/priority-badge.html' %}
   </td>
   <td class="hidden md:table-cell text-nowrap">{{ goal.target_date|date:'d-m-Y' }}</td>
   <td class="items-center md:flex text-nowrap">
     <!-- complete progress -->
-    <progress class="w-full md:w-56 md:h-3 progress progress-primary" value="{{ goal.get_complete_percent }}" max="100"></progress>
+    <progress class="w-full md:w-40 md:h-3 progress progress-primary" value="{{ goal.get_complete_percent }}" max="100"></progress>
     <span class="hidden ms-2 md:block">{{ goal.get_complete_percent }} %</span>
   </td>
   <th class="text-center">
