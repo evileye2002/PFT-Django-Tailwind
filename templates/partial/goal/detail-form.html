@@ -28,17 +28,6 @@
 
       <label class="w-full form-control">
         <div class="pt-0 label">
-          <span class="label-text">Số tiền mục tiêu<span class="text-error">*</span></span>
-        </div>
-        <label class="flex items-center gap-2 input input-bordered">
-          <input name="target_amount" type="text" class="grow" value="{{ form.target_amount.value|int_comma }}" onchange="amountValueChange(event)" required autocomplete="off" onkeyup="this.setCustomValidity('')" hx-on:htmx:validation:validate="isNumber(this); htmx.find('#detail-goal-form').reportValidity();" />
-          <div class="btn btn-sm btn-ghost">đ</div>
-        </label>
-        {% include 'component/form-field-error.html' with field_errors=form.target_amount.errors %}
-      </label>
-
-      <label class="w-full form-control">
-        <div class="pt-0 label">
           <span class="label-text">Mức độ ưu tiên<span class="text-error">*</span></span>
         </div>
         <select class="select select-bordered" name="priority" value="{{ form.priority.value }}" required>
@@ -68,7 +57,7 @@
         <label for="detail-goal-modal" class="btn btn-sm btn-outline">Huỷ bỏ</label>
         <label class="btn btn-sm btn-error" hx-post="{% url "htmx-delete-goal" goal.id %}"
             hx-trigger="click" hx=swap="none" hx-disabled-elt="this" hx-swap="none"
-            hx-confirm="Xác nhận xoá Hạng mục này?"
+            hx-confirm="Xác nhận xoá mục tiêu này?"
             hx-on="deleteGoalSuccessfully: toggleModal('detail-goal-modal')">
             Xoá
         </label>

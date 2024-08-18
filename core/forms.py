@@ -31,7 +31,6 @@ class GoalForm(forms.ModelForm):
         model = Goal
         fields = [
             "name",
-            "current_amount",
             "target_amount",
             "target_date",
             "priority",

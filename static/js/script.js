@@ -153,13 +153,16 @@ function isNumber($this) {
   if (!isValid) $this.setCustomValidity("Vui lòng nhập 1 số lớn hơn 0.");
 }
 
-function showConfirmModal(title, question) {
+function showConfirmModal(title, question, modalID = "confirm-modal") {
   const $title = document.querySelector(".modal-confirm-title");
-  const $question = document.querySelector(".modal-confirm-question");
+  const $questions = document.querySelectorAll(".modal-confirm-question");
 
   if ($title) $title.textContent = title;
-  if ($question) $question.textContent = question;
-  toggleModal("confirm-modal");
+  if ($questions)
+    $questions.forEach((element) => {
+      element.textContent = question;
+    });
+  toggleModal(modalID);
 }
 
 function removeAlert($alert) {
@@ -209,15 +212,35 @@ function previewAvatar(e, imgID) {
 
 document.addEventListener("htmx:confirm", function (e) {
   e.preventDefault();
-  if (e.detail.question) {
-    const $btnConfirm = document.getElementById("btn-confirm");
 
+  if (!e.detail.question) {
+    e.detail.issueRequest(true);
+    return;
+  }
+
+  if (e.detail.target.id != "add-transaction-btn") {
+    const $btnConfirm = document.getElementById("btn-confirm");
     showConfirmModal("Thông báo", e.detail.question);
     $btnConfirm.onclick = function (event) {
       e.detail.issueRequest(true);
       toggleModal("confirm-modal");
     };
-  } else e.detail.issueRequest(true);
+
+    return;
+  }
+
+  $isIncomeInput = document.getElementById("add-transaction-is-income-input");
+  if ($isIncomeInput.checked) {
+    e.detail.issueRequest(true);
+    return;
+  }
+
+  const $btnConfirm = document.getElementById("btn-confirm-warning");
+  showConfirmModal("Thông báo", e.detail.question, "goal-warning-modal");
+  $btnConfirm.onclick = function (event) {
+    e.detail.issueRequest(true);
+    toggleModal("goal-warning-modal");
+  };
 });
 
 document.addEventListener("keydown", function (e) {

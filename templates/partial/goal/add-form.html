@@ -51,20 +51,6 @@
         {% include 'component/form-field-error.html' with field_errors=form.target_date.errors %}
       </label>
 
-      <div class="form-control">
-        <label class="gap-3 cursor-pointer label justify-normal">
-          {% if is_use_balance %}
-            <input name="is_use_balance" type="checkbox" checked="checked" class="checkbox checkbox-primary" />
-          {% else %}
-            <input name="is_use_balance" type="checkbox" class="checkbox checkbox-primary" />
-          {% endif %}
-          <span class="label-text">Sử dụng số dư hiện tại</span>
-          <div class="tooltip" data-tip="Mặc định sử dụng số dư hiện tại để tính toán tiến độ hoàn thành của mục tiêu. Nếu không, mục tiêu sẽ bắt đầu tính toán từ 0 đ">
-            <i class="fa-regular fa-circle-question fa-sm"></i>
-          </div>
-        </label>
-      </div>
-
       <div class="flex justify-end gap-2">
         <label for="add-goal-modal" class="btn btn-sm btn-outline">Huỷ bỏ</label>
         <button type="reset" class="btn btn-sm btn-outline">Làm mới</button>

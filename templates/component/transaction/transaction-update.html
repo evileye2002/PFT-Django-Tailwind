@@ -1,3 +1,5 @@
+{% load util_filters %}
+
 {% if type == 'filter' %}
   {% include 'partial/transaction/table-transaction.html' with transactions=filter.qs %}
   {{ filter.form }}
@@ -16,3 +18,37 @@
     {% include 'component/alert.html' with alert_type=message.type alert_msg=message.value %}
   </div>
 {% endif %}
+
+<div id="goal-warning-confirm-modal-box" class="modal-box" hx-swap-oob="true">
+  <h3 class="mb-3 text-lg font-bold">Thông báo</h3>
+  <div class="space-y-3">
+    {% for goal in goals_incomplete %}
+      <div class="flex gap-3 p-2 overflow-hidden font-medium border rounded-md border-warning">
+        <span class="text-warning">{{ goal|title|truncatechars:10 }}</span>
+        |
+        <span>{{ goal.target_amount|int_comma }} <span class="text-warning">đ</span></span>
+        |
+        <span>{{ goal.get_complete_percent }} <span class="text-warning">%</span></span>
+      </div>
+    {% endfor %}
+  </div>
+  <p class="py-1 modal-confirm-question">Những mục tiêu trên chưa hoàn thành.</p>
+  <p class="py-1">Bạn có muốn tiếp tục?</p>
+  <div class="modal-action">
+    <label for="goal-warning-modal" class="btn btn-sm btn-outline">Huỷ</label>
+    <label id="btn-confirm-warning" class="btn btn-sm btn-error">Tiếp tục</label>
+  </div>
+</div>
+
+<div id="add-transaction-btn-div" class="flex justify-end gap-2" hx-swap-oob="true">
+  <label for="add-transaction-modal" class="btn btn-sm btn-outline">Huỷ bỏ</label>
+  <button id="reset-add-transaction-btn" type="reset" class="btn btn-sm btn-outline">Làm mới</button>
+  <label id="add-transaction-btn" class="btn btn-sm btn-primary" hx-post="{% url "htmx-add-transaction" %}" hx-trigger="click"
+      hx-disabled-elt="this" hx-validate="true" hx-swap="none"
+      {% if goals_incomplete %}
+      hx-confirm="Những mục tiêu trên chưa hoàn thành. Thêm chi tiêu có thể làm chậm tiến độ hoàn thành."
+      {% endif %}
+      hx-on="addTransactionSuccessfully: toggleModal('add-transaction-modal');">
+      Thêm
+  </label>
+</div>

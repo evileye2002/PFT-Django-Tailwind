@@ -87,7 +87,7 @@ goal_url_patterns = [
     ),
     path(
         "delete-goal/<int:id>",
-        views.goal_deltail,
+        views.delete_goal,
         name="htmx-delete-goal",
     ),
 ]

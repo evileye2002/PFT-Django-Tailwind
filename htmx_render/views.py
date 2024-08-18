@@ -144,13 +144,6 @@ def add_goal(request):
     if request.method == "POST":
         post_data = request.POST.copy()
         post_data["target_amount"] = post_data.get("target_amount", "").replace(",", "")
-        is_use_balance = post_data.get("is_use_balance", "off") == "on"
-
-        if is_use_balance:
-            post_data["current_amount"] = request.user.balance
-        else:
-            post_data["current_amount"] = 0
-
         form = GoalForm(post_data)
 
         if form.is_valid():
@@ -170,7 +163,6 @@ def add_goal(request):
         "goals": goals,
         "message": message,
         "type": "add",
-        "is_use_balance": is_use_balance,
     }
 
     response = render(request, "component/goal/page-layout.html", ctx)
@@ -232,10 +224,35 @@ def update_goal(request, id):
     return response
 
 
+def delete_goal(request, id):
+    goals = Goal.objects.filter(user=request.user)
+    message = None
+
+    try:
+        goal = Goal.objects.get(id=id, user=request.user)
+        goal.delete()
+        message = {"type": "alert-success", "value": "Xoá mục tiêu thành công."}
+    except Exception as ex:
+        print(ex)
+        message = {"type": "alert-error", "value": "Đã xảy ra lỗi khi xoá mục tiêu."}
+
+    ctx = {
+        "goals": goals,
+        "message": message,
+        "type": "delete",
+    }
+    response = render(request, "component/goal/page-layout.html", ctx)
+    if "success" in message["type"]:
+        response["HX-TRIGGER"] = "deleteGoalSuccessfully"
+
+    return response
+
+
 def add_transaction(request):
     form = None
     transactions = None
     message = None
+    goals_incomplete = None
     categories = Category.objects.filter(user=request.user)
 
     if request.method == "POST":
@@ -248,6 +265,11 @@ def add_transaction(request):
         )
 
         form = TransactionForm(post_data)
+        goals_incomplete = Goal.objects.filter(
+            user=request.user,
+            priority=GoalPriority.HIGH,
+            target_amount__gt=request.user.balance,
+        )
         categories = Category.objects.filter(user=request.user, type=post_data["type"])
 
         if form.is_valid():
@@ -271,6 +293,7 @@ def add_transaction(request):
 
     ctx = {
         "form": form,
+        "goals_incomplete": goals_incomplete,
         "categories": categories,
         "transactions": transactions,
         "message": message,
@@ -306,6 +329,7 @@ def update_transaction(request, id):
         id=id,
         category__in=Category.objects.filter(user=request.user),
     )
+    goals_incomplete = None
     categories = Category.objects.filter(user=request.user, type=transaction.type)
     form = TransactionForm(instance=transaction)
     message = None
@@ -346,6 +370,11 @@ def update_transaction(request, id):
             )
 
             form = None
+            goals_incomplete = Goal.objects.filter(
+                user=request.user,
+                priority=GoalPriority.HIGH,
+                target_amount__gt=request.user.balance,
+            )
             transactions = Transaction.objects.filter(user=request.user)
             message = {
                 "type": "alert-success",
@@ -357,6 +386,7 @@ def update_transaction(request, id):
 
     ctx = {
         "form": form,
+        "goals_incomplete": goals_incomplete,
         "categories": categories,
         "transactions": transactions,
         "transaction": transaction,
@@ -373,6 +403,7 @@ def update_transaction(request, id):
 
 def delete_transaction(request, id):
     transactions = Transaction.objects.filter(user=request.user)
+    goals_incomplete = None
     message = None
 
     try:
@@ -386,6 +417,11 @@ def delete_transaction(request, id):
                 else UpdateBalanceOperationType.ADD
             ),
         )
+        goals_incomplete = Goal.objects.filter(
+            user=request.user,
+            priority=GoalPriority.HIGH,
+            target_amount__gt=request.user.balance,
+        )
 
         message = {"type": "alert-success", "value": "Xoá Giao dịch thành công."}
     except Exception as ex:
@@ -394,6 +430,7 @@ def delete_transaction(request, id):
 
     ctx = {
         "transactions": transactions,
+        "goals_incomplete": goals_incomplete,
         "message": message,
         "type": "delete",
     }

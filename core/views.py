@@ -1,6 +1,6 @@
 from django.shortcuts import render, resolve_url
 from django.contrib.auth.decorators import login_required
-from .models import Transaction, Category, TransactionType, Goal
+from .models import Transaction, Category, TransactionType, Goal, GoalPriority
 from .charts import ColumnChart, ChartType, DonutChart
 
 
@@ -53,12 +53,18 @@ def home(request):
 @login_required(login_url="sign-in")
 def transaction(request):
     transactions = Transaction.objects.filter(user=request.user)
+    goals_incomplete = Goal.objects.filter(
+        user=request.user,
+        priority=GoalPriority.HIGH,
+        target_amount__gt=request.user.balance,
+    )
     categories = Category.objects.filter(
         user=request.user, type=TransactionType.EXPENSE
     )
     ctx = {
         "transactions": transactions,
         "categories": categories,
+        "goals_incomplete": goals_incomplete,
     }
 
     return render(request, "core/transaction.html", ctx)

@@ -8,7 +8,6 @@
     </label>
   </th>
   <td class="font-bold">{{ goal.name|title }}</td>
-  <td class="hidden md:table-cell text-nowrap">{{ goal.current_amount|int_comma }} đ</td>
   <td class="hidden md:table-cell text-nowrap">{{ goal.target_amount|int_comma }} đ</td>
   <td class="hidden text-center md:table-cell text-nowrap">
     {% include 'component/goal/priority-badge.html' %}

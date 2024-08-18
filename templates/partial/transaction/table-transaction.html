@@ -36,5 +36,12 @@
     {% endif %}
   </table>
 
-  <div class="text-center font-bold p-10 table {% if transactions %}hidden{% endif %}">Không có Lịch sử Giao dịch.</div>
+  <div class="space-y-3 text-center font-bold p-10 table {% if transactions %}hidden{% endif %}">
+    <!-- Empty -->
+    <div>Không có giao dịch nào.</div>
+    <label for="add-transaction-modal" class="btn btn-sm btn-secondary">
+      <!-- Empty -->
+      Thêm giao dịch
+    </label>
+  </div>
 </div>

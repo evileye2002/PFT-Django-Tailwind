@@ -18,8 +18,8 @@
           <label class="flex items-center w-full gap-2 input input-bordered input-sm md:w-fit">
             <span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="text" name="s" class="grow" placeholder="Tìm kiếm" hx-get="" hx-trigger="keyup[keyCode==13], search, keyup changed delay:2s" hx-on:keyup="if (this.value == '') htmx.trigger(this,'search')" hx-swap="none" />
-            <kbd class="kbd kbd-sm">Ctrl</kbd>
-            <kbd class="kbd kbd-sm">K</kbd>
+            <kbd class="hidden kbd kbd-sm md:block">Ctrl</kbd>
+            <kbd class="hidden kbd kbd-sm md:block">K</kbd>
           </label>
           <label id="open-add-goal-modal-btn" for="add-goal-modal" class="btn btn-sm btn-secondary"><span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-plus fa-lg"></i></span></label>
         </div>

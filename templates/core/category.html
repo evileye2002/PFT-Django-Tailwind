@@ -14,11 +14,11 @@
             <span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-xmark"></i></span>
             Bulk Delete
           </div>
-          <label class="flex items-center gap-2 input input-bordered input-sm">
+          <label class="flex items-center w-full gap-2 input input-bordered input-sm md:w-fit">
             <span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-magnifying-glass"></i></span>
             <input type="text" name="s" class="grow" placeholder="Tìm kiếm" hx-get="{% url 'htmx-filter-category' %}" hx-trigger="keyup[keyCode==13], search, keyup changed delay:2s" hx-on:keyup="if (this.value == '') htmx.trigger(this,'search')" hx-swap="none" />
-            <kbd class="kbd kbd-sm">Ctrl</kbd>
-            <kbd class="kbd kbd-sm">K</kbd>
+            <kbd class="hidden kbd kbd-sm md:block">Ctrl</kbd>
+            <kbd class="hidden kbd kbd-sm md:block">K</kbd>
           </label>
           {% comment %} <label for="filter-category-drawer" class="drawer-button btn btn-sm"><span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-filter"></i></span></label> {% endcomment %}
           <label id="open-add-category-modal-btn" for="add-category-modal" class="btn btn-sm btn-secondary"><span class="flex items-center justify-center w-3 h-3 fill-current"><i class="fa-solid fa-plus fa-lg"></i></span></label>
