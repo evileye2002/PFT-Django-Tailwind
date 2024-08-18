@@ -1,0 +1,9 @@
+<!-- complete progress -->
+{% if goal.get_complete_percent < 25 %}
+  <progress class="w-full md:w-40 progress progress-error" value="{{ goal.get_complete_percent }}" max="100"></progress>
+{% elif goal.get_complete_percent < 100 %}
+  <progress class="w-full md:w-40 progress progress-warning" value="{{ goal.get_complete_percent }}" max="100"></progress>
+{% else %}
+  <progress class="w-full md:w-40 progress progress-success" value="{{ goal.get_complete_percent }}" max="100"></progress>
+{% endif %}
+<span class="hidden ms-2 md:block">{{ goal.get_complete_percent }} %</span>

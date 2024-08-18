@@ -8,7 +8,20 @@
 module.exports = {
   darkMode: ["selector", '[data-theme="dracula"]'],
   daisyui: {
-    themes: ["emerald", "dracula"],
+    themes: [
+      "emerald",
+      "dracula",
+      {
+        emerald: {
+          ...require("daisyui/src/theming/themes")["emerald"],
+          "primary-content": "#040A10",
+        },
+        dracula: {
+          ...require("daisyui/src/theming/themes")["dracula"],
+          "primary-content": "#000000",
+        },
+      },
+    ],
   },
   content: [
     /**

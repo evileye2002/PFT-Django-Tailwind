@@ -72,4 +72,4 @@ class Goal(models.Model):
         return self.name
 
     def get_complete_percent(self):
-        return format(int((self.current_amount / self.target_amount * 100)))
+        return int((self.current_amount / self.target_amount * 100))

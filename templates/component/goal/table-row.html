@@ -15,11 +15,9 @@
   </td>
   <td class="hidden md:table-cell text-nowrap">{{ goal.target_date|date:'d-m-Y' }}</td>
   <td class="items-center md:flex text-nowrap">
-    <!-- complete progress -->
-    <progress class="w-full md:w-40 md:h-3 progress progress-primary" value="{{ goal.get_complete_percent }}" max="100"></progress>
-    <span class="hidden ms-2 md:block">{{ goal.get_complete_percent }} %</span>
+    {% include 'component/goal/complete-progress.html' %}
   </td>
   <th class="text-center">
-    <label for="detail-goal-modal" class="btn btn-primary btn-outline btn-xs" hx-get="" hx-trigger="click" hx-target="#detail-category-modal-box" hx-swap="outerHTML"><i class="fa-solid fa-pen-to-square"></i></label>
+    <label for="detail-goal-modal" class="btn btn-primary btn-outline btn-xs" hx-get="{% url 'htmx-goal-detail' goal.id %}" hx-trigger="click" hx-target="#detail-goal-modal-box" hx-swap="outerHTML"><i class="fa-solid fa-pen-to-square"></i></label>
   </th>
 </tr>

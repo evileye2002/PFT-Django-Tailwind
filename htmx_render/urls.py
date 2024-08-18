@@ -75,6 +75,21 @@ goal_url_patterns = [
         views.add_goal,
         name="htmx-add-goal",
     ),
+    path(
+        "goal-deltail/<int:id>",
+        views.goal_deltail,
+        name="htmx-goal-detail",
+    ),
+    path(
+        "update-goal/<int:id>",
+        views.update_goal,
+        name="htmx-update-goal",
+    ),
+    path(
+        "delete-goal/<int:id>",
+        views.goal_deltail,
+        name="htmx-delete-goal",
+    ),
 ]
 
 urlpatterns += category_url_patterns

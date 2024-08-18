@@ -180,6 +180,58 @@ def add_goal(request):
     return response
 
 
+def goal_deltail(request, id):
+    goal = Goal.objects.get(id=id, user=request.user)
+    form = GoalForm(instance=goal)
+
+    ctx = {
+        "form": form,
+        "goal": goal,
+        "type": "detail",
+    }
+    return render(request, "partial/goal/detail-form.html", ctx)
+
+
+def update_goal(request, id):
+    goal = Goal.objects.get(id=id, user=request.user)
+    form = GoalForm(instance=goal)
+    message = None
+    goals = None
+
+    if request.method == "POST":
+        post_data = request.POST.copy()
+        post_data["target_amount"] = post_data.get("target_amount", "").replace(",", "")
+
+        form = GoalForm(post_data, instance=goal)
+
+        if form.is_valid():
+            form.save()
+
+            form = None
+            goals = Goal.objects.filter(user=request.user)
+            message = {
+                "type": "alert-success",
+                "value": "Cập nhật mục tiêu thành công.",
+            }
+        else:
+            goals = Goal.objects.filter(user=request.user)
+            message = {"type": "alert-error", "value": "Cập nhật mục tiêu thất bại."}
+
+    ctx = {
+        "form": form,
+        "goals": goals,
+        "goal": goal,
+        "message": message,
+        "type": "edit",
+    }
+
+    response = render(request, "component/goal/page-layout.html", ctx)
+    if "success" in message["type"]:
+        response["HX-TRIGGER"] = "updateGoalSuccessfully"
+
+    return response
+
+
 def add_transaction(request):
     form = None
     transactions = None
