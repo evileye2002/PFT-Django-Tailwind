@@ -45,7 +45,6 @@ INSTALLED_APPS = [
     "tailwind",
     "theme",
     "django_filters",
-    "widget_tweaks",
     "cloudinary_storage",
     "cloudinary",
 ]

@@ -1,0 +1,28 @@
+Django
+
+# django-crispy-forms # for custom theme form
+# crispy-daisyui # crispy theme
+
+# django-shortuuidfield # for custom id field like: '347asda76'
+# django_components # for custom component
+
+# django-allauth # for [GG, Github,...] auth
+django-filter # form filter form
+
+# django-extensions
+
+# OTHER
+pillow # for image input
+
+# TESTING
+# selenium
+
+# DEPLOY
+psycopg2-binary
+dj-database-url
+django-cloudinary-storage
+
+# DEV
+django-tailwind
+# django-browser-reload
+# django-debug-toolbar
