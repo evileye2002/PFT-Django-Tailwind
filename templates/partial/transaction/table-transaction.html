@@ -1,18 +1,17 @@
 <div id="table-transaction-block" hx-swap-oob="true">
-  <table id="transaction-history-table" class="table">
+  <table id="transaction-history-table" class="table table-sm md:table-md">
     <!-- head -->
     <thead>
       <tr>
         <th>
-          <label class="flex items-center justify-center">
-            <!-- Select All -->
-            <input all-row-selection type="checkbox" class="checkbox checkbox-sm" onchange="selectAllRow(event)" />
-          </label>
+          {% if transactions.count > 1 %}
+            <label class="flex items-center justify-center"><input all-row-selection type="checkbox" class="checkbox checkbox-sm" onchange="selectAllRow(event)" /></label>
+          {% endif %}
         </th>
         <th>Tên giao dịch</th>
         <th>Hạng mục</th>
         <th>Số tiền</th>
-        <th>Ngày</th>
+        <th class="hidden md:block">Ngày</th>
         <th></th>
       </tr>
     </thead>
@@ -25,11 +24,11 @@
     {% if transactions.count > 10 %}
       <tfoot>
         <tr>
-          <th></th>
+          <th class="hidden md:block"></th>
           <th>Tên giao dịch</th>
           <th>Hạng mục</th>
           <th>Số tiền</th>
-          <th>Ngày</th>
+          <th class="hidden md:block">Ngày</th>
           <th></th>
         </tr>
       </tfoot>
