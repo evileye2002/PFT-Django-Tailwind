@@ -25,10 +25,11 @@ Make sure you have the following installed on your machine:
 
 **Installation**
 
-Install the project dependencies using npm:
+Install the project dependencies using `pip`:
 
 ```bash
 pip install -r requirements.txt
+python manage.py tailwind install
 ```
 
 **Installation**
@@ -57,7 +58,6 @@ INTERNAL_IPS = [
 ```
 
 ```bash
-python manage.py tailwind install
 python manage.py tailwind start
 ```
 
