@@ -545,13 +545,19 @@ def update_user_info(request):
 
     if request.method == "POST":
         form = UpdateUserInfoForm(request.POST, request.FILES, instance=request.user)
-        if form.is_valid():
-            form.save()
-            message = {
-                "type": "alert-success",
-                "value": "Thay đổi thông tin thành công.",
-            }
-        else:
+        try:
+            if form.is_valid():
+                form.save()
+                message = {
+                    "type": "alert-success",
+                    "value": "Thay đổi thông tin thành công.",
+                }
+            else:
+                message = {
+                    "type": "alert-error",
+                    "value": "Thay đổi thông tin thất bại.",
+                }
+        except Exception as ex:
             message = {
                 "type": "alert-error",
                 "value": "Thay đổi thông tin thất bại.",
@@ -570,16 +576,22 @@ def change_password(request):
 
     if request.method == "POST":
         form = PasswordChangeForm(request.user, request.POST)
-        if form.is_valid():
-            user = form.save()
-            update_session_auth_hash(request, user)
+        try:
+            if form.is_valid():
+                user = form.save()
+                update_session_auth_hash(request, user)
 
-            form = None
-            message = {
-                "type": "alert-success",
-                "value": "Đổi mật khhẩu thành công.",
-            }
-        else:
+                form = None
+                message = {
+                    "type": "alert-success",
+                    "value": "Đổi mật khhẩu thành công.",
+                }
+            else:
+                message = {
+                    "type": "alert-error",
+                    "value": "Đổi mật khhẩu thất bại.",
+                }
+        except Exception as ex:
             message = {
                 "type": "alert-error",
                 "value": "Đổi mật khhẩu thất bại.",
