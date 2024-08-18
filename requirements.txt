@@ -1,0 +1,21 @@
+Django
+
+# django-extensions
+# django-shortuuidfield # for custom id field like: '347asda76'
+# django_components # for custom component
+# django-allauth # for [GG, Github,...] auth
+django-filter # form filter form
+django-tailwind
+pillow # for image input
+
+# TESTING
+# selenium
+
+# DEPLOY
+psycopg2-binary
+dj-database-url
+django-cloudinary-storage
+
+# DEV
+# django-browser-reload
+# django-debug-toolbar

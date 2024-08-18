@@ -32,6 +32,13 @@ pip install -r requirements.txt
 
 **Running the Project**
 
+Change `root/Personal_Finace_Tracker/settings.py`
+
+```python
+DEBUG = False
+NPM_BIN_PATH = r"C:\Program Files\nodejs\npm.cmd"
+```
+
 ```bash
 python manage.py tailwind start
 ```
