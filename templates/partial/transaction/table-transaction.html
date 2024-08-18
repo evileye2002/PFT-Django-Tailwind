@@ -4,9 +4,10 @@
     <thead>
       <tr>
         <th>
-          {% if transactions.count > 1 %}
-            <label class="flex items-center justify-center"><input all-row-selection type="checkbox" class="checkbox checkbox-sm" onchange="selectAllRow(event)" /></label>
-          {% endif %}
+          <label class="flex items-center justify-center">
+            <!-- Select All -->
+            <input all-row-selection type="checkbox" class="checkbox checkbox-sm" onchange="selectAllRow(event)" />
+          </label>
         </th>
         <th>Tên giao dịch</th>
         <th>Hạng mục</th>
