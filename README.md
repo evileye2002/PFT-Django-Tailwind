@@ -38,7 +38,7 @@ Create `.env` file in `root` folder:
 
 ```bash
 SECRET_KEY="<your_secret_key>"
-DATABASE_URL="postgres://<username>:password@<hostname>:<port>/<dbname>"
+DATABASE_URL="postgres://<username>:<password>@<hostname>:<port>/<dbname>"
 # OPTIONAL
 CLOUDINARY_CLOUD_NAME="<your_LOUDINARY_CLOUD_NAME>"
 CLOUDINARY_API_KEY="<your_CLOUDINARY_API_KEY>"
